@@ -21,7 +21,7 @@ CREATE TABLE channels (
     id serial PRIMARY KEY,
     users_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE,
-    name varchar(20) UNIQUE NOT NULL,
+    name varchar(15) UNIQUE NOT NULL,
     description varchar(50) NOT NULL,
     is_owner BOOLEAN NOT NULL,
     created_at timestamp not null default current_timestamp,
