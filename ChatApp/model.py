@@ -6,14 +6,15 @@ from DB import DB
 
 class PostModel:
     @staticmethod
-    def insert_user(email, password):
+    def insert_user(name, email, password):
+        login_count = 0
         conn = DB.getConnection()
         if conn is None:
             return False
         
         try:
             with conn.cursor() as cursor:
-                cursor.execute('INSERT INTO posts (email, password) VALUES (%s, %s)', (email, password))
+                cursor.execute('INSERT INTO users (name, email, password, login_count) VALUES (%s, %s ,%s, %s)', (name, email, password, login_count))
             conn.commit()
             return True
         except pymysql.MySQLError as e:

@@ -6,9 +6,9 @@ class DB:
         try:
             conn = pymysql.connect(
                 host="db",  # ホスト名
-                db="flaskapp",  # 使用するデータベース名
-                user="root",  # ユーザー名
-                password="password",  # パスワード
+                db="chatapp",  # 使用するデータベース名
+                user="testuser",  # ユーザー名
+                password="testuser",  # パスワード
                 charset="utf8",  # 文字セット
                 cursorclass=pymysql.cursors.DictCursor  # 結果を辞書形式で取得
             )
