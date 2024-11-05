@@ -19,8 +19,8 @@ CREATE TABLE users (
 
 CREATE TABLE channels (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    users_id INT NOT NULL,
-    FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     name varchar(15) UNIQUE NOT NULL,
     description varchar(50) NOT NULL,
     created_at timestamp not null default current_timestamp,
@@ -29,8 +29,8 @@ CREATE TABLE channels (
 
 CREATE TABLE messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    users_id INT NOT NULL,
-    FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     channel_id INT NOT NULL,
     FOREIGN KEY (channel_id) REFERENCES channels(id) ON DELETE CASCADE,
     content text,
@@ -39,6 +39,6 @@ CREATE TABLE messages (
 );
 
 INSERT INTO users(id, name, email, password, login_count)VALUES(1,'テスト','test@gmail.com','aaaa', 1);
-INSERT INTO channels(id, users_id, name, description)VALUES(1, 1,'ぼっち部屋','テストさんの孤独な部屋です');
-INSERT INTO channels(id, users_id, name, description)VALUES(2, 1,'ぼっち','テストさん');
-INSERT INTO messages(id, users_id, channel_id, content)VALUES(1, 1, 1, '誰かかまってください、、');
+INSERT INTO channels(id, user_id, name, description)VALUES(1, 1,'ぼっち部屋','テストさんの孤独な部屋です');
+INSERT INTO channels(id, user_id, name, description)VALUES(2, 1,'ぼっち','テストさん');
+INSERT INTO messages(id, user_id, channel_id, content)VALUES(1, 1, 1, '誰かかまってください、、');
