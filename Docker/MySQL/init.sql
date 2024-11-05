@@ -40,4 +40,5 @@ CREATE TABLE messages (
 
 INSERT INTO users(id, name, email, password, login_count)VALUES(1,'テスト','test@gmail.com','aaaa', 1);
 INSERT INTO channels(id, users_id, name, description)VALUES(1, 1,'ぼっち部屋','テストさんの孤独な部屋です');
-INSERT INTO messages(id, users_id, channel_id, content)VALUES(1, 1, 1, '誰かかまってください、、')
+INSERT INTO channels(id, users_id, name, description)VALUES(2, 1,'ぼっち','テストさん');
+INSERT INTO messages(id, users_id, channel_id, content)VALUES(1, 1, 1, '誰かかまってください、、');
