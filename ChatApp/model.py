@@ -1,8 +1,6 @@
-import pymysql  # type: ignore
-import os
-from DB import DB
-
-   
+import pymysql
+from flask import abort
+from util.DB import DB
 
 class PostModel:
     @staticmethod
@@ -22,3 +20,18 @@ class PostModel:
             return False
         finally:
             conn.close()
+            
+    def getChannel():
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT name, description FROM channels;"
+            cur.execute(sql)
+            channels = cur.fetchall()
+            return channels
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+        

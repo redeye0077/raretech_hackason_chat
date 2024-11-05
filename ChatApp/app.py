@@ -3,13 +3,15 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 
 import os
 from model import PostModel  # model.pyをインポート
-from DB import DB
+from util.DB import DB
 
 app = Flask(__name__)
 
-@app.route('/')
+#チャンネル一覧画面
+@app.route('/index')
 def index():
-    return render_template('index.html')
+    channels = PostModel.getChannel()
+    return render_template('index.html', channels=channels)
 
 # 新規登録画面
 @app.route('/create', methods=['GET', 'POST'])
@@ -24,10 +26,6 @@ def create():
         resp = make_response(redirect(url_for('index')))
         resp.set_cookie('last_post', email)
         return resp
-
-    return render_template('signup.html')
-
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
