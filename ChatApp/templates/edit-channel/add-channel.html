@@ -13,6 +13,13 @@
         <p style="color: red;">{{ error_message }}</p>
     {% endif %}
 
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="flashes">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <!-- チャンネル追加フォーム -->
     <form action="{{ url_for('channelAdd') }}" method="post">
         <div>
