@@ -1,11 +1,12 @@
 from ast import Return
-from flask import Flask, render_template, request, redirect, session, url_for, make_response  # type: ignore
+from flask import Flask, flash, render_template, request, redirect, session, url_for, make_response  # type: ignore
 
 import os
 from model import PostModel  # model.pyをインポート
 
 app = Flask(__name__)
 app.debug = True
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route('/')
 def index():
@@ -50,6 +51,7 @@ def channelAdd():
     # チャンネル追加
     else:
         PostModel.addChannel(user_id,channel_name, channel_description)
+        flash('部屋を追加しました！')
     return redirect(url_for('channelAddIndex'))
 
 if __name__ == "__main__":
