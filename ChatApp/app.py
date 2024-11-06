@@ -1,11 +1,11 @@
 from ast import Return
-from flask import Flask, render_template, request, redirect, url_for, make_response  # type: ignore
+from flask import Flask, render_template, request, redirect, session, url_for, make_response  # type: ignore
 
 import os
 from model import PostModel  # model.pyをインポート
-from DB import DB
 
 app = Flask(__name__)
+app.debug = True
 
 @app.route('/')
 def index():
@@ -27,7 +27,30 @@ def create():
 
     return render_template('signup.html')
 
+#チャンネル追加画面
+@app.route('/channel-add')
+def channelAddIndex():
+    return render_template('edit-channel/add-channel.html')
 
+@app.route('/channel-add',methods=['POST'])
+def channelAdd():
+    user_id = 1
+    # フォームからチャンネル名と説明を取得
+    channel_name = request.form.get('channel_name')
+    channel_description = request.form.get('channel_description')
+    # チャンネル名が空の場合のチェック
+    if not channel_name or not channel_description:
+        error = '空のフォームがあるようです'
+        return render_template('edit-channel/add-channel.html', error_message=error)
+    # チャンネル名の重複チェック
+    existing_channel = PostModel.getChannelName(channel_name)
+    if existing_channel:
+        error = '既に同じ名前のチャンネルが存在しています！'
+        return render_template('edit-channel/add-channel.html', error_message=error)
+    # チャンネル追加
+    else:
+        PostModel.addChannel(user_id,channel_name, channel_description)
+    return redirect(url_for('channelAddIndex'))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
