@@ -29,11 +29,11 @@ def create():
     return render_template('signup.html')
 
 #チャンネル追加画面
-@app.route('/channel-add')
+@app.route('/channel_add')
 def channelAddIndex():
     return render_template('edit-channel/add-channel.html')
 
-@app.route('/channel-add',methods=['POST'])
+@app.route('/channel_add',methods=['POST'])
 def channelAdd():
     user_id = 1
     # フォームからチャンネル名と説明を取得
