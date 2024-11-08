@@ -3,14 +3,17 @@ from flask import Flask, flash, render_template, request, redirect, session, url
 
 import os
 from model import PostModel  # model.pyをインポート
+from util.DB import DB
 
 app = Flask(__name__)
 app.debug = True
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-@app.route('/')
+#チャンネル一覧画面
+@app.route('/index')
 def index():
-    return render_template('index.html')
+    channels = PostModel.getChannel()
+    return render_template('index.html', channels=channels)
 
 # 新規登録画面
 @app.route('/create', methods=['GET', 'POST'])

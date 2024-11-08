@@ -21,6 +21,21 @@ class PostModel:
             return False
         finally:
             conn.close()
+            
+    def getChannel():
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT name, description FROM channels;"
+            cur.execute(sql)
+            channels = cur.fetchall()
+            return channels
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+        
 
     @staticmethod
     def getChannelName(channel_name):
