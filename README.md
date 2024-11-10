@@ -1,3 +1,2 @@
 # raretech_hackason_chat
 
-これはHチームのアプリです
