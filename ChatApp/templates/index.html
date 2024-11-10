@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>チャンネル一覧</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>チャンネル一覧</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="flashes">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <ul class="channel-list">
+        {% for channel in channels %}
+            <li>
+                <strong>{{ channel.name }}</strong>: {{ channel.description }}
+                <form action="{{ url_for('channel', channel_id=channel.id) }}" method="get" style="display:inline;">
+                    <button type="submit">削除画面へ</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

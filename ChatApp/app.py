@@ -3,14 +3,44 @@ from flask import Flask, flash, render_template, request, redirect, session, url
 
 import os
 from model import PostModel  # model.pyをインポート
+from util.DB import DB
 
 app = Flask(__name__)
 app.debug = True
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-@app.route('/')
+# ログインページの表示
+@app.route('/login')
+def login():
+    return render_template('registration/login.html')
+
+# ログイン処理
+@app.route('/login', methods=['POST'])
+def userLogin():
+    email = request.form.get('email')
+    if email =='':
+        flash('空のフォームがあるようです')
+    else:
+        user = PostModel.getUser(email)
+        session['user_id'] = user["id"]
+        return redirect('/index')
+    return redirect('/login')   
+
+# 部屋一覧画面
+@app.route('/index')
 def index():
-    return render_template('index.html')
+    channels = PostModel.getChannel()
+    return render_template('index.html', channels=channels)
+
+# 削除画面に遷移
+@app.route('/channel_delete/<int:channel_id>')
+def channel(channel_id):
+    # データベースから該当のチャンネルを取得
+    channel = PostModel.getChannelId(channel_id)
+    if channel:
+        return render_template('edit-channel/delete-channel.html',channel=channel)
+    else:
+        return "チャンネルが見つかりませんでした。", 404
 
 # 新規登録画面
 @app.route('/create', methods=['GET', 'POST'])
@@ -49,12 +79,13 @@ def signoutChannelAdd():
 def signoutChannelDelete():
     return signout()
 
-#チャンネル追加画面
-@app.route('/channel-add')
+# 部屋追加画面
+@app.route('/channel_add')
 def channelAddIndex():
     return render_template('edit-channel/add-channel.html')
 
-@app.route('/channel-add',methods=['POST'])
+# 部屋追加処理
+@app.route('/channel_add',methods=['POST'])
 def channelAdd():
     user_id = 1
     # フォームからチャンネル名と説明を取得
@@ -63,17 +94,31 @@ def channelAdd():
     # チャンネル名が空の場合のチェック
     if not channel_name or not channel_description:
         error = '空のフォームがあるようです'
-        return render_template('edit-channel/add-channel.html', error_message=error)
+        return render_template('edit-channel/add-channel.html', error_message_brank=error)
     # チャンネル名の重複チェック
     existing_channel = PostModel.getChannelName(channel_name)
     if existing_channel:
         error = '既に同じ名前のチャンネルが存在しています！'
-        return render_template('edit-channel/add-channel.html', error_message=error)
+        return render_template('edit-channel/add-channel.html', error_message_duplication=error)
     # チャンネル追加
     else:
         PostModel.addChannel(user_id,channel_name, channel_description)
         flash('部屋を追加しました！')
     return redirect(url_for('channelAddIndex'))
+
+# 部屋削除処理
+@app.route('/channel_delete/<int:channel_id>/delete',methods=['POST'])
+def deleteChannel(channel_id):
+    user_id = session.get("user_id")
+    channel = PostModel.getChannelId(channel_id)
+    #部屋作成者以外削除できないようにする
+    if channel["user_id"] != user_id:
+        error = '部屋は作成者のみ削除可能です'
+        return render_template('edit-channel/delete-channel.html', channel=channel, error_message=error)
+    #部屋削除
+    PostModel.deleteChannel(channel_id)
+    flash('部屋を削除しました')
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
