@@ -1,0 +1,72 @@
+{% extends 'registration/base.html' %} 
+{% block title %}singup{% endblock %} 
+{% block body %}
+<div class="registration-wrapper">
+    <div  class="registration-container">
+        <img
+        src="{{ url_for('static',filename='img/')}}"
+        class="registration-main-pic"
+        />
+        <div class="">
+            <div class="">
+                <img
+                src="{{ url_for('static',filename='img/')}}"
+                alt="logo"
+                />
+            </div>
+            {#ユーザー登録フォーム#}
+            <form class="registration-form-singup" action="{{ url_for('singup') }}" method="post">
+                <h1 class="registration-title">一習慣</h1>
+                <div>
+                    <label for="signup-name-input">名前</label>
+                    <input
+                    type="text"
+                    placeholder="みんなから呼ばれたい名前"
+                    namae="name"
+                    id="signup-name-input"
+                    />
+                </div>
+                <div>
+                    <label for="singnup-email-input">メールアドレス</label>
+                    <input
+                    type="text"
+                    placeholder="sample@email.com"
+                    name="email"
+                    id="singnup-email-input"
+                    />
+                </div>
+                <div>
+                    <label for="signup-password-input">パスワード(半角英数)</label>
+                    <input 
+                    type="password"
+                    placeholder="パスワードを入力してください"
+                    name="password1"
+                    id="signup-password-input"
+                    />
+                </div>
+                <div>
+                    <label  for="signup-password-confirmation-input">パスワード確認</label>
+                    <input
+                    type="password"
+                    placeholder="同じパスワードを入力してください"
+                    name="password2"
+                    id="signup-password-confirmation-input"
+                    />
+                </div>
+                <div class="registration-button-container">
+                    <button type="submit" class="" >
+                        会員登録
+                    </button>
+                </div>
+                <div>
+                    <button class="">
+                        <a  href="{{ url_for('login') }}">
+                            ログインする
+                        </a>
+                    </button>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>
+{% endblock %}
