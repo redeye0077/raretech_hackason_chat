@@ -73,12 +73,12 @@ def channelAdd():
     # チャンネル名が空の場合のチェック
     if not channel_name or not channel_description:
         error = '空のフォームがあるようです'
-        return render_template('edit-channel/add-channel.html', error_message=error)
+        return render_template('edit-channel/add-channel.html', error_message_brank=error)
     # チャンネル名の重複チェック
     existing_channel = PostModel.getChannelName(channel_name)
     if existing_channel:
         error = '既に同じ名前のチャンネルが存在しています！'
-        return render_template('edit-channel/add-channel.html', error_message=error)
+        return render_template('edit-channel/add-channel.html', error_message_duplication=error)
     # チャンネル追加
     else:
         PostModel.addChannel(user_id,channel_name, channel_description)
