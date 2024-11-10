@@ -58,6 +58,27 @@ def create():
 
     return render_template('signup.html')
 
+#サインアウト処理
+def signout():
+    session.clear()
+    return redirect('/login')
+
+@app.route('/index', methods=['POST'])
+def signoutIndex():
+    return signout()
+
+@app.route('/message', methods=['POST'])
+def signoutMessage():
+    return signout()
+
+@app.route('/channel_add', methods=['POST'])
+def signoutChannelAdd():
+    return signout()
+
+@app.route('/channel_delete', methods=['POST'])
+def signoutChannelDelete():
+    return signout()
+
 # 部屋追加画面
 @app.route('/channel_add')
 def channelAddIndex():
