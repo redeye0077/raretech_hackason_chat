@@ -42,6 +42,12 @@ def index():
     channels = PostModel.getChannel()
     return render_template('index.html', channels=channels)
 
+#サインアウト処理
+@app.route('/signout', methods=['POST'])
+def signout():
+    session.clear()
+    return redirect('/login')
+
 # 削除画面に遷移
 @app.route('/channel_delete/<int:channel_id>')
 def channel(channel_id):
@@ -72,12 +78,6 @@ def create():
 @app.route('/channel_add')
 def channelAddIndex():
     return render_template('edit-channel/add-channel.html')
-
-#サインアウト処理
-@app.route('/signout', methods=['POST'])
-def signout():
-    session.clear()
-    return redirect('/login')
 
 # 部屋追加処理
 @app.route('/channel_add',methods=['POST'])
