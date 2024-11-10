@@ -22,11 +22,25 @@ class PostModel:
         finally:
             conn.close()
             
+    def getUser(email):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT * FROM users WHERE email=%s;"
+            cur.execute(sql, (email))
+            user = cur.fetchone()
+            return user
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+
     def getChannel():
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT name, description FROM channels;"
+            sql = "SELECT id, name, description FROM channels;"
             cur.execute(sql)
             channels = cur.fetchall()
             return channels
@@ -35,7 +49,21 @@ class PostModel:
             abort(500)
         finally:
             cur.close()
-        
+
+    @staticmethod
+    def getChannelId(channel_id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT id, user_id FROM channels WHERE id = %s;"
+            cur.execute(sql, (channel_id))
+            channels = cur.fetchone()
+            return channels
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
 
     @staticmethod
     def getChannelName(channel_name):
@@ -59,6 +87,19 @@ class PostModel:
             cur = conn.cursor()
             sql = "INSERT INTO channels (user_id, name, description) VALUES (%s, %s, %s);"
             cur.execute(sql, (user_id, channel_name, channel_description))
+            conn.commit()
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+
+    def deleteChannel(channel_id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "DELETE FROM channels WHERE id=%s;"
+            cur.execute(sql, (channel_id))
             conn.commit()
         except Exception as e:
             print(f'エラーが発生しています：{e}')

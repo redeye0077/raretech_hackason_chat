@@ -1,0 +1,15 @@
+<div id="delete-channel-modal" class="modal">
+  <div class="modal-header">
+      <h2>Delete channel</h2>
+  </div>
+  <div class="modal-body">
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <p>削除ボタンを押すとチャンネルが消えます</p>
+    <p>本当によろしいですか？</p>
+    <form action="{{ url_for('deleteChannel', channel_id=channel.id) }}" method="post">
+      <button id="delete-channel-confirmation-button" type="submit">削除</button>
+    </form>
+  </div>
+</div>

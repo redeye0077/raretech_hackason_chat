@@ -38,7 +38,8 @@ CREATE TABLE messages (
     updated_at timestamp not null default current_timestamp on update current_timestamp
 );
 
-INSERT INTO users(id, name, email, password, login_count)VALUES(1,'テスト','test@gmail.com','aaaa', 1);
+INSERT INTO users(id, name, email, password, login_count)VALUES(1,'テスト','test1@gmail.com','aaaa', 1);
+INSERT INTO users(id, name, email, password, login_count)VALUES(2,'テ','test2@gmail.com','aaaa', 1);
 INSERT INTO channels(id, user_id, name, description)VALUES(1, 1,'ぼっち部屋','テストさんの孤独な部屋です');
 INSERT INTO channels(id, user_id, name, description)VALUES(2, 1,'ぼっち','テストさん');
 INSERT INTO messages(id, user_id, channel_id, content)VALUES(1, 1, 1, '誰かかまってください、、');
