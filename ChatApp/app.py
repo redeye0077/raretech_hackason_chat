@@ -1,7 +1,8 @@
 import os
 import re
-from flask import Flask, render_template, request, redirect, url_for, make_response, flash
+from flask import Flask, render_template, request, redirect, make_response, flash, session
 from model import PostModel  # model.pyをインポート
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
@@ -34,14 +35,25 @@ def userSignup():
     elif re.match(pattern, email) is None:
         flash('正しいメールアドレスの形式ではありません')
         return redirect('/signup')
-    else:
-        # 入力データが検証を通過した場合、データベースに挿入
-        PostModel.insert_user(name, email, password1)
-        # Cookieに保存
-        resp = make_response(redirect('/'))
-        resp.set_cookie('last_post', email)
-        return resp
+    # 重複チェック：既に登録済みのメールアドレスがあるか確認
+    if PostModel.getUser(email):
+        flash('このメールアドレスは既に登録されています。別のメールアドレスを使用してください。')
+        return redirect('/signup')
+    
+    # パスワードのハッシュ化
+    password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
+    # IDを生成 (例: タイムスタンプとユーザー情報を使ったMD5ハッシュ)
+    id = hashlib.md5(f"{name}{email}{os.urandom(16)}".encode('utf-8')).hexdigest()
 
+    # 入力データが検証を通過した場合、データベースに挿入
+    if PostModel.insert_user(name, email, password):
+        UserId = str(id)
+        session['id'] = UserId                     
+        return redirect('/')
+    else:
+        flash('ユーザー登録に失敗しました。')
+        return redirect('/signup')
+    
 @app.route('/')
 def index():
     return render_template('index.html')

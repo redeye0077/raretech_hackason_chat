@@ -1,6 +1,6 @@
 import pymysql  # type: ignore
 import os
-from DB import DB
+from util.DB import DB
 
    
 
@@ -22,3 +22,20 @@ class PostModel:
             return False
         finally:
             conn.close()
+
+    def getUser(email):
+        try:
+            conn = DB.getConnection()
+            if conn is None:
+                return None
+            with conn.cursor() as cur:
+                sql = "SELECT * FROM users WHERE email=%s;"
+                cur.execute(sql, (email,))
+                user = cur.fetchone()
+                return user
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            return None
+        finally:
+            if conn:
+                conn.close()
