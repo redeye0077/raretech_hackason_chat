@@ -9,8 +9,12 @@
     <h1>チャンネル追加画面</h1>
 
     <!-- エラーメッセージの表示 -->
-    {% if error_message %}
-        <p style="color: red;">{{ error_message }}</p>
+    {% if error_message_brank %}
+        <p style="color: red;">{{ error_message_brank }}</p>
+    {% endif %}
+
+    {% if error_message_duplication %}
+        <p style="color: blue;">{{ error_message_duplication }}</p>
     {% endif %}
 
     {% with messages = get_flashed_messages() %}
