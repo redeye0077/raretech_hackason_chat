@@ -18,19 +18,35 @@ def login():
 @app.route('/login', methods=['POST'])
 def userLogin():
     email = request.form.get('email')
-    if email =='':
+    
+    # フォームが空かどうかをチェック
+    if not email:
         flash('空のフォームがあるようです')
-    else:
-        user = PostModel.getUser(email)
-        session['user_id'] = user["id"]
-        return redirect('/index')
-    return redirect('/login')   
+        return redirect('/login')
+    
+    # メールアドレスに対応するユーザーの取得
+    user = PostModel.getUser(email)
+    
+    # ユーザーが見つからない場合のエラー処理
+    if not user:
+        flash('ユーザーが見つかりません。正しいメールアドレスを入力してください。')
+        return redirect('/login')
+    
+    # ユーザーが見つかり、セッションにユーザーIDを設定
+    session['user_id'] = user["id"]
+    return redirect('/index')
 
 # 部屋一覧画面
 @app.route('/index')
 def index():
     channels = PostModel.getChannel()
     return render_template('index.html', channels=channels)
+
+#サインアウト処理
+@app.route('/signout', methods=['POST'])
+def signout():
+    session.clear()
+    return redirect('/login')
 
 # 削除画面に遷移
 @app.route('/channel_delete/<int:channel_id>')
@@ -58,27 +74,6 @@ def create():
 
     return render_template('signup.html')
 
-#サインアウト処理
-def signout():
-    session.clear()
-    return redirect('/login')
-
-@app.route('/index', methods=['POST'])
-def signoutIndex():
-    return signout()
-
-@app.route('/message', methods=['POST'])
-def signoutMessage():
-    return signout()
-
-@app.route('/channel_add', methods=['POST'])
-def signoutChannelAdd():
-    return signout()
-
-@app.route('/channel_delete', methods=['POST'])
-def signoutChannelDelete():
-    return signout()
-
 # 部屋追加画面
 @app.route('/channel_add')
 def channelAddIndex():
@@ -87,7 +82,7 @@ def channelAddIndex():
 # 部屋追加処理
 @app.route('/channel_add',methods=['POST'])
 def channelAdd():
-    user_id = 1
+    user_id = session.get("user_id")
     # フォームからチャンネル名と説明を取得
     channel_name = request.form.get('channel_name')
     channel_description = request.form.get('channel_description')
