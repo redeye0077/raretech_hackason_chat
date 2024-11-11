@@ -1,5 +1,5 @@
 {% extends 'registration/base.html' %} 
-{% block title %}singup{% endblock %} 
+{% block title %}signup{% endblock %} 
 {% block body %}
 <div class="registration-wrapper">
     <div  class="registration-container">
@@ -15,7 +15,7 @@
                 />
             </div>
             {#ユーザー登録フォーム#}
-            <form class="registration-form-singup" action="{{ url_for('singup') }}" method="post">
+            <form class="registration-form-signup" action="{{ url_for('signup') }}" method="post">
                 <h1 class="registration-title">一習慣</h1>
                 <div>
                     <label for="signup-name-input">名前</label>
@@ -27,12 +27,12 @@
                     />
                 </div>
                 <div>
-                    <label for="singnup-email-input">メールアドレス</label>
+                    <label for="signup-email-input">メールアドレス</label>
                     <input
                     type="text"
                     placeholder="sample@email.com"
                     name="email"
-                    id="singnup-email-input"
+                    id="signup-email-input"
                     />
                 </div>
                 <div>
