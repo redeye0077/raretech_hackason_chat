@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <form action="{{ url_for('userLogin') }}" method="post">
+        <div>
+            <label for="email-input">Email</label>
+            <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            id="email-input"
+            />
+        </div>
+        <div>
+            <button type="submit">ログイン</button>
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="flashes">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </form>
+</body>
+</html>

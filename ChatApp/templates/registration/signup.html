@@ -1,0 +1,90 @@
+{% extends 'registration/base.html' %} 
+{% block title %}signup{% endblock %} 
+{% block body %}
+<div class="registration-wrapper">
+    <div  class="registration-container">
+        <img
+        src="{{ url_for('static',filename='img/')}}"
+        class="registration-main-pic"
+        />
+        <div class="registration-form-wrapper">
+            {#ユーザー登録フォーム#}
+            <form class="registration-form-signup" action="{{ url_for('signup') }}" method="post">
+                <h1 class="registration-title">一習慣</h1>
+                <div>
+                    <label for="signup-name-input">名前</label>
+                    <input
+                    type="text"
+                    placeholder="みんなから呼ばれたい名前"
+                    name="name"
+                    id="signup-name-input"
+                    />
+                    {# エラーメッセージの表示５ 名前の重複 #}
+                    {% if error_message5 %}
+                        <p style="color: red;">{{ error_message5 }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="signup-email-input">メールアドレス</label>
+                    <input
+                    type="email"
+                    placeholder="sample@email.com"
+                    name="email"
+                    id="signup-email-input"
+                    />
+                    {# エラーメッセージの表示３ メールアドレスの形式違い #}
+                    {% if error_message3 %}
+                        <p style="color: red;">{{ error_message3 }}</p>
+                    {% endif %}
+                    {# エラーメッセージの表示４ メールアドレスの重複 #}
+                    {% if error_message4 %}
+                        <p style="color: red;">{{ error_message4 }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="signup-password-input">パスワード(半角英数)</label>
+                    <input 
+                    type="password"
+                    placeholder="パスワードを入力してください"
+                    name="password1"
+                    id="signup-password-input"
+                    />
+                </div>
+                <div>
+                    <label  for="signup-password-confirmation-input">パスワード確認</label>
+                    <input
+                    type="password"
+                    placeholder="同じパスワードを入力してください"
+                    name="password2"
+                    id="signup-password-confirmation-input"
+                    />
+                    {# エラーメッセージの表示２ パスワード不一致 #}
+                    {% if error_message3 %}
+                        <p style="color: red;">{{ error_message3 }}</p>
+                    {% endif %}
+                </div>
+                <div class="registration-button-container">
+                    {# エラーメッセージの表示１ 空の入力フォーム #}
+                    {% if error_message1 %}
+                        <p style="color: red;">{{ error_message1 }}</p>
+                    {% endif %}
+                    {# エラーメッセージの表示６ 登録失敗 #}
+                    {% if error_message6 %}
+                        <p style="color: red;">{{ error_message6 }}</p>
+                    {% endif %}
+                    <button type="submit" class="registration-button" >
+                        会員登録
+                    </button>
+                </div>
+                <div>
+                    <button class="registration-button">
+                        <a href="{{ url_for('login') }}" style="text-decoration:none;color:black;">
+                            ログインする
+                        </a>
+                    </button>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>
+{% endblock %}
