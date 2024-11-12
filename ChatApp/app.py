@@ -27,25 +27,25 @@ def userSignup():
  # フォームの入力検証
     if name == '' or email == '' or password1 == '' or password2 == '':
         error = '空の入力フォームがあります'
-        return render_template('registration/signup.html', error_message=error)
+        return render_template('registration/signup.html', error_message1=error)
     
     elif password1 != password2:
         error = 'パスワードが一致しません。もう一度入力してください。'
-        return render_template('registration/signup.html', error_message=error)
+        return render_template('registration/signup.html', error_message2=error)
     
     elif re.match(pattern, email) is None:
         error = '正しいメールアドレスの形式ではありません'
-        return render_template('registration/signup.html', error_message=error)
+        return render_template('registration/signup.html', error_message3=error)
     
     # 重複チェック：既に登録済みのメールアドレスがあるか確認
     if PostModel.getUser(email):
         error = 'このメールアドレスは既に登録されています。別のメールアドレスを使用してください。'
-        return render_template('registration/signup.html', error_message=error)
+        return render_template('registration/signup.html', error_message4=error)
 
      #名前の重複チェック
     if PostModel.getUserByName(name):
         error = 'この名前は既に使用されています。別の名前を使用してください。'
-        return render_template('registration/signup.html', error_message=error)
+        return render_template('registration/signup.html', error_message5=error)
 
     # パスワードのハッシュ化
     password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
@@ -54,11 +54,11 @@ def userSignup():
     if PostModel.insert_user(name, email, password):
         session['id'] = str(id)
         flash('ユーザー登録が完了しました！')
-        return redirect('/')
+        return redirect('/login')
    
     else:
         error = 'ユーザー登録に失敗しました。'
-        return render_template('registration/signup.html', error_message=error)
+        return render_template('registration/signup.html', error_message6=error)
 
     
     
