@@ -39,3 +39,21 @@ class PostModel:
         finally:
             if conn:
                 conn.close()
+
+    @staticmethod
+    def getUserByName(name):
+        try:
+            conn = DB.getConnection()
+            if conn is None:
+                return None
+            with conn.cursor() as cur:
+                sql = "SELECT * FROM users WHERE name = %s;"
+                cur.execute(sql, (name,))
+                user = cur.fetchone()
+                return user
+        except pymysql.MySQLError as e:
+            print(f'エラーが発生しています：{e}')
+            return None
+        finally:
+            if conn:
+                conn.close()
