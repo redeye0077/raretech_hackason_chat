@@ -67,28 +67,6 @@ def userSignup():
 def login():
     return render_template('registration/login.html')
 
-# ログイン処理
-@app.route('/login', methods=['POST'])
-def userLogin():
-    email = request.form.get('email')
-    
-    # フォームが空かどうかをチェック
-    if not email:
-        flash('空のフォームがあるようです')
-        return redirect('/login')
-    
-    # メールアドレスに対応するユーザーの取得
-    user = PostModel.getUser(email)
-    
-    # ユーザーが見つからない場合のエラー処理
-    if not user:
-        flash('ユーザーが見つかりません。正しいメールアドレスを入力してください。')
-        return redirect('/login')
-    
-    # ユーザーが見つかり、セッションにユーザーIDを設定
-    session['user_id'] = user["id"]
-    return redirect('/index')
-
 @app.route('/index')
 def index():
     channels = PostModel.getChannel()
