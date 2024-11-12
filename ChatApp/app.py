@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 from model import PostModel  # model.pyをインポート
 from ast import Return
 import hashlib
+from util.DB import DB
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
@@ -61,9 +62,34 @@ def userSignup():
         error = 'ユーザー登録に失敗しました。'
         return render_template('registration/signup.html', error_message6=error)
 
+# ログインページの表示
+@app.route('/login')
+def login():
+    return render_template('registration/login.html')
+
+# ログイン処理
+@app.route('/login', methods=['POST'])
+def userLogin():
+    email = request.form.get('email')
     
+    # フォームが空かどうかをチェック
+    if not email:
+        flash('空のフォームがあるようです')
+        return redirect('/login')
     
-@app.route('/')
+    # メールアドレスに対応するユーザーの取得
+    user = PostModel.getUser(email)
+    
+    # ユーザーが見つからない場合のエラー処理
+    if not user:
+        flash('ユーザーが見つかりません。正しいメールアドレスを入力してください。')
+        return redirect('/login')
+    
+    # ユーザーが見つかり、セッションにユーザーIDを設定
+    session['user_id'] = user["id"]
+    return redirect('/index')
+
+@app.route('/index')
 def index():
     channels = PostModel.getChannel()
     return render_template('index.html', channels=channels)
