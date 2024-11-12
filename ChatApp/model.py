@@ -21,20 +21,43 @@ class PostModel:
             return False
         finally:
             conn.close()
-            
+
+
     def getUser(email):
         try:
             conn = DB.getConnection()
-            cur = conn.cursor()
-            sql = "SELECT * FROM users WHERE email=%s;"
-            cur.execute(sql, (email))
-            user = cur.fetchone()
-            return user
+            if conn is None:
+                return None
+            with conn.cursor() as cur:
+                sql = "SELECT * FROM users WHERE email=%s;"
+                cur.execute(sql, (email,))
+                user = cur.fetchone()
+                return user
         except Exception as e:
             print(f'エラーが発生しています：{e}')
-            abort(500)
+            return None
         finally:
-            cur.close()
+            if conn:
+                conn.close()
+
+    @staticmethod
+    def getUserByName(name):
+        try:
+            conn = DB.getConnection()
+            if conn is None:
+                return None
+            with conn.cursor() as cur:
+                sql = "SELECT * FROM users WHERE name = %s;"
+                cur.execute(sql, (name,))
+                user = cur.fetchone()
+                return user
+        except pymysql.MySQLError as e:
+            print(f'エラーが発生しています：{e}')
+            return None
+        finally:
+            if conn:
+                conn.close()
+
 
     def getChannel():
         try:
@@ -107,3 +130,4 @@ class PostModel:
         finally:
             cur.close()
         
+
