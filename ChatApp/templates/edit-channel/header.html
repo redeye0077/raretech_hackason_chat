@@ -1,0 +1,10 @@
+<div class="header-wrapper">
+    <img src="../static/img/oneweek-logo.png" alt="logo" class="logo">
+    <h1 class="header-title">{{ title }}</h1>  
+</div>
+<div>
+    <ul class="header-wrapper">
+        <li><a href="{{ url_for('index')}}" class="button">ホームへ戻る</a></li>
+        <li><a href="{{ url_for('signout')}}" class="button">サインアウト</a></li>
+    </ul>
+</div>
