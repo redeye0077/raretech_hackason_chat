@@ -1,48 +1,12 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>チャンネル追加</title>
-</head>
-<body>
-    <h1>チャンネル追加画面</h1>
-
-    <!-- エラーメッセージの表示 -->
-    {% if error_message_brank %}
-        <p style="color: red;">{{ error_message_brank }}</p>
-    {% endif %}
-
-    {% if error_message_duplication %}
-        <p style="color: blue;">{{ error_message_duplication }}</p>
-    {% endif %}
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <p class="flashes">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
+{% extends 'edit-channel/base.html' %} {% block title %}
+<title>部屋追加</title>
+{% endblock %}{% block body %}
+<header class="header-wrapper">
+    {% with title = "部屋追加" %}
+        {% include 'edit-channel/header.html' %} 
     {% endwith %}
-    <form action="{{ url_for('signout') }}" method="post">
-        <div>
-            <button type="submit">サインアウト</button>
-        </div>
-    </form>
-    <!-- チャンネル追加フォーム -->
-    <form action="{{ url_for('channelAdd') }}" method="post">
-        <div>
-            <label for="channel_name">チャンネル名:</label>
-            <input type="text" id="channel_name" name="channel_name">
-        </div>
-        <div>
-            <label for="channel_description">チャンネル説明:</label>
-            <textarea id="channel_description" name="channel_description"></textarea>
-        </div>
-        <div>
-            <button type="submit">追加</button>
-        </div>
-    </form>
-    
-</body>
-</html>
+</header> 
+<main>
+
+</main>
+{% endblock %}
