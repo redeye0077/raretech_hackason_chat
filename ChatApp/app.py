@@ -67,6 +67,12 @@ def userSignup():
 def login():
     return render_template('registration/login.html')
 
+#ホーム画面の表示
+@app.route('/index')
+def index():
+    channels = PostModel.getChannel()
+    return render_template('index.html', channels=channels)
+
 # ログイン処理
 @app.route('/login', methods=['POST'])
 def userLogin():
