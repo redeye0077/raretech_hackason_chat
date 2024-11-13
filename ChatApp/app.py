@@ -67,10 +67,40 @@ def userSignup():
 def login():
     return render_template('registration/login.html')
 
+#ホーム画面の表示
 @app.route('/index')
 def index():
     channels = PostModel.getChannel()
     return render_template('index.html', channels=channels)
+
+# ログイン処理
+@app.route('/login', methods=['POST'])
+def userLogin():
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    # 入力チェック
+    if not email or not password:
+        error = '空の入力フォームがあります'
+        return render_template('registration/login.html', error_message7=error)
+
+    # ユーザーの取得と存在チェック
+    user = PostModel.getUser(email)
+    if user is None:
+        error = 'このユーザーは存在しません'
+        return render_template('registration/login.html', error_message8=error)
+
+    # パスワードのハッシュ化と照合
+    hashPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    if hashPassword != user["password"]:
+        error = 'パスワードが間違っています！'
+        return render_template('registration/login.html', error_message9=error)
+
+    # ログイン成功時の処理
+    session['user_id'] = user["id"]
+    flash('ログイン成功！')
+    return redirect(url_for('index'))
+
 
 #サインアウト処理
 @app.route('/signout', methods=['POST'])
