@@ -8,6 +8,7 @@ from util.DB import DB
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
+app.debug = True
 
 # サインアップページの表示
 @app.route('/signup', methods=['GET'])
@@ -67,6 +68,29 @@ def userSignup():
 def login():
     return render_template('registration/login.html')
 
+# ログイン処理
+@app.route('/login', methods=['POST'])
+def userLogin():
+    email = request.form.get('email')
+    
+    # フォームが空かどうかをチェック
+    if not email:
+        flash('空のフォームがあるようです')
+        return redirect('/login')
+    
+    # メールアドレスに対応するユーザーの取得
+    user = PostModel.getUser(email)
+    
+    # ユーザーが見つからない場合のエラー処理
+    if not user:
+        flash('ユーザーが見つかりません。正しいメールアドレスを入力してください。')
+        return redirect('/login')
+    
+    # ユーザーが見つかり、セッションにユーザーIDを設定
+    session['user_id'] = user["id"]
+    return redirect('/index')
+
+#ホーム画面
 @app.route('/index')
 def index():
     channels = PostModel.getChannel()
@@ -128,6 +152,17 @@ def deleteChannel(channel_id):
     PostModel.deleteChannel(channel_id)
     flash('部屋を削除しました')
     return redirect(url_for('index'))
+
+# メッセージ画面
+@app.route('/message/<int:channel_id>')
+def messageIndex(channel_id):
+    user_id = session.get("user_id")
+    # データベースから該当のチャンネルを取得
+    channel = PostModel.getChannelId(channel_id)
+    name = PostModel.getChannelId(channel_id)
+    description = PostModel.getChannelId(channel_id)
+    messages = PostModel.getMessage(channel_id)
+    return render_template('detail.html', channel=channel, messages=messages, user_id=user_id, name=name, description=description)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

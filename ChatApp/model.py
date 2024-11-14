@@ -30,7 +30,7 @@ class PostModel:
                 return None
             with conn.cursor() as cur:
                 sql = "SELECT * FROM users WHERE email=%s;"
-                cur.execute(sql, (email,))
+                cur.execute(sql, (email))
                 user = cur.fetchone()
                 return user
         except Exception as e:
@@ -48,7 +48,7 @@ class PostModel:
                 return None
             with conn.cursor() as cur:
                 sql = "SELECT * FROM users WHERE name = %s;"
-                cur.execute(sql, (name,))
+                cur.execute(sql, (name))
                 user = cur.fetchone()
                 return user
         except pymysql.MySQLError as e:
@@ -57,7 +57,6 @@ class PostModel:
         finally:
             if conn:
                 conn.close()
-
 
     def getChannel():
         try:
@@ -78,7 +77,7 @@ class PostModel:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT id, user_id FROM channels WHERE id = %s;"
+            sql = "SELECT id, user_id, name, description FROM channels WHERE id = %s;"
             cur.execute(sql, (channel_id))
             channels = cur.fetchone()
             return channels
@@ -124,6 +123,20 @@ class PostModel:
             sql = "DELETE FROM channels WHERE id=%s;"
             cur.execute(sql, (channel_id))
             conn.commit()
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+
+    def getMessage(channel_id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT me.id AS message_id, us.id AS user_id, us.name AS name, content, me.created_at AS created_at FROM messages AS me INNER JOIN users AS us ON me.user_id = us.id WHERE me.channel_id = %s;"
+            cur.execute(sql, (channel_id))
+            messages = cur.fetchall()
+            return messages
         except Exception as e:
             print(f'エラーが発生しています：{e}')
             abort(500)

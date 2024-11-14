@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メッセージ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/detail.css') }}">
+</head>
+<body>
+    <p>メッセージ画面</p>
+    <div class="channel-tytle">
+        <p>{{ channel.name }}</p>
+        <p>{{ channel.description }}</p>
+    </div>
+    <section id="message-item">
+        {% for message in messages %} {% if message.user_id == user_id %}
+            <div class="my-message">
+                <p>{{ message.created_at }}</p>
+                <p>{{ message.name }}</p>
+                <p class="box-right">{{ message.content }}</p>
+            </div>
+        {% else %}
+            <div class="other-message">
+                <p>{{ message.created_at }}</p>
+                <p>{{ message.name }}</p>
+                <p class="box-left">{{ message.content }}</p>
+            </div>
+        {% endif %} {% endfor %}
+    </section>
+</body>
+</html>
