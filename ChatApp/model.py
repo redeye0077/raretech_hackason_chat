@@ -78,7 +78,7 @@ class PostModel:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT id, user_id FROM channels WHERE id = %s;"
+            sql = "SELECT id, user_id, name, description FROM channels WHERE id = %s;"
             cur.execute(sql, (channel_id))
             channels = cur.fetchone()
             return channels
