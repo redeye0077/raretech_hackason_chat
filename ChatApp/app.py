@@ -115,13 +115,6 @@ def deleteChannel(channel_id):
     flash('部屋を削除しました')
     return redirect(url_for('index'))
 
-# テスト
-@app.route('/test')
-def test():
-    pagetitle = "hogehoge部屋"
-
-    return render_template('edit-channel/test.html' , pagetitle = pagetitle)
-
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
+    
