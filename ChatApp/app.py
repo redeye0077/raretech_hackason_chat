@@ -9,6 +9,11 @@ from util.DB import DB
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
 
+# 最初のページを/loginにリダイレクトする
+@app.route('/')
+def home():
+    return redirect(url_for('login'))
+
 # サインアップページの表示
 @app.route('/signup', methods=['GET'])
 def signup():
