@@ -1,46 +1,106 @@
-from ast import Return
-from flask import Flask, flash, render_template, request, redirect, session, url_for, make_response  # type: ignore
-
 import os
+import re
+from flask import Flask, render_template, request, redirect, url_for, make_response, flash, session
 from model import PostModel  # model.pyをインポート
+from ast import Return
+import hashlib
 from util.DB import DB
 
 app = Flask(__name__)
-app.debug = True
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
+
+# サインアップページの表示
+@app.route('/signup', methods=['GET'])
+def signup():
+    return render_template('registration/signup.html')
+
+
+# 新規登録画面 (POSTメソッドのみ)
+@app.route('/signup', methods=['POST'])
+def userSignup():
+
+    name = request.form.get('name')
+    email = request.form.get('email')
+    password1 = request.form.get('password1')
+    password2 = request.form.get('password2')
+
+    pattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                                 
+ # フォームの入力検証
+    if name == '' or email == '' or password1 == '' or password2 == '':
+        error = '空の入力フォームがあります'
+        return render_template('registration/signup.html', error_message1=error)
+    
+    elif password1 != password2:
+        error = 'パスワードが一致しません。もう一度入力してください。'
+        return render_template('registration/signup.html', error_message2=error)
+    
+    elif re.match(pattern, email) is None:
+        error = '正しいメールアドレスの形式ではありません'
+        return render_template('registration/signup.html', error_message3=error)
+    
+    # 重複チェック：既に登録済みのメールアドレスがあるか確認
+    if PostModel.getUser(email):
+        error = 'このメールアドレスは既に登録されています。別のメールアドレスを使用してください。'
+        return render_template('registration/signup.html', error_message4=error)
+
+     #名前の重複チェック
+    if PostModel.getUserByName(name):
+        error = 'この名前は既に使用されています。別の名前を使用してください。'
+        return render_template('registration/signup.html', error_message5=error)
+
+    # パスワードのハッシュ化
+    password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
+    
+    # 入力データが検証を通過した場合、データベースに挿入
+    if PostModel.insert_user(name, email, password):
+        session['id'] = str(id)
+        flash('ユーザー登録が完了しました！')
+        return redirect('/login')
+   
+    else:
+        error = 'ユーザー登録に失敗しました。'
+        return render_template('registration/signup.html', error_message6=error)
 
 # ログインページの表示
 @app.route('/login')
 def login():
     return render_template('registration/login.html')
 
-# ログイン処理
-@app.route('/login', methods=['POST'])
-def userLogin():
-    email = request.form.get('email')
-    
-    # フォームが空かどうかをチェック
-    if not email:
-        flash('空のフォームがあるようです')
-        return redirect('/login')
-    
-    # メールアドレスに対応するユーザーの取得
-    user = PostModel.getUser(email)
-    
-    # ユーザーが見つからない場合のエラー処理
-    if not user:
-        flash('ユーザーが見つかりません。正しいメールアドレスを入力してください。')
-        return redirect('/login')
-    
-    # ユーザーが見つかり、セッションにユーザーIDを設定
-    session['user_id'] = user["id"]
-    return redirect('/index')
-
-# 部屋一覧画面
+#ホーム画面の表示
 @app.route('/index')
 def index():
     channels = PostModel.getChannel()
     return render_template('index.html', channels=channels)
+
+# ログイン処理
+@app.route('/login', methods=['POST'])
+def userLogin():
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    # 入力チェック
+    if not email or not password:
+        error = '空の入力フォームがあります'
+        return render_template('registration/login.html', error_message7=error)
+
+    # ユーザーの取得と存在チェック
+    user = PostModel.getUser(email)
+    if user is None:
+        error = 'このユーザーは存在しません'
+        return render_template('registration/login.html', error_message8=error)
+
+    # パスワードのハッシュ化と照合
+    hashPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    if hashPassword != user["password"]:
+        error = 'パスワードが間違っています！'
+        return render_template('registration/login.html', error_message9=error)
+
+    # ログイン成功時の処理
+    session['user_id'] = user["id"]
+    flash('ログイン成功！')
+    return redirect(url_for('index'))
+
 
 #サインアウト処理
 @app.route('/signout', methods=['POST'])
@@ -57,22 +117,6 @@ def channel(channel_id):
         return render_template('edit-channel/delete-channel.html',channel=channel)
     else:
         return "チャンネルが見つかりませんでした。", 404
-
-# 新規登録画面
-@app.route('/create', methods=['GET', 'POST'])
-def create():
-    if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        password = request.form['password']
-        # 入力データをデータベースに挿入
-        PostModel.insert_user(name,email, password)
-        # Cookieに保存
-        resp = make_response(redirect(url_for('index')))
-        resp.set_cookie('last_post', email)
-        return resp
-
-    return render_template('signup.html')
 
 # 部屋追加画面
 @app.route('/channel_add')

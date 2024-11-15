@@ -1,5 +1,5 @@
 {% extends 'registration/base.html' %} 
-{% block title %}singup{% endblock %} 
+{% block title %}signup{% endblock %} 
 {% block body %}
 <div class="registration-wrapper">
     <div  class="registration-container">
@@ -7,33 +7,39 @@
         src="{{ url_for('static',filename='img/')}}"
         class="registration-main-pic"
         />
-        <div class="">
-            <div class="">
-                <img
-                src="{{ url_for('static',filename='img/')}}"
-                alt="logo"
-                />
-            </div>
+        <div class="registration-form-wrapper">
             {#ユーザー登録フォーム#}
-            <form class="registration-form-singup" action="{{ url_for('singup') }}" method="post">
+            <form class="registration-form-signup" action="{{ url_for('signup') }}" method="post">
                 <h1 class="registration-title">一習慣</h1>
                 <div>
                     <label for="signup-name-input">名前</label>
                     <input
                     type="text"
                     placeholder="みんなから呼ばれたい名前"
-                    namae="name"
+                    name="name"
                     id="signup-name-input"
                     />
+                    {# エラーメッセージの表示５ 名前の重複 #}
+                    {% if error_message5 %}
+                        <p style="color: red;">{{ error_message5 }}</p>
+                    {% endif %}
                 </div>
                 <div>
-                    <label for="singnup-email-input">メールアドレス</label>
+                    <label for="signup-email-input">メールアドレス</label>
                     <input
-                    type="text"
+                    type="email"
                     placeholder="sample@email.com"
                     name="email"
-                    id="singnup-email-input"
+                    id="signup-email-input"
                     />
+                    {# エラーメッセージの表示３ メールアドレスの形式違い #}
+                    {% if error_message3 %}
+                        <p style="color: red;">{{ error_message3 }}</p>
+                    {% endif %}
+                    {# エラーメッセージの表示４ メールアドレスの重複 #}
+                    {% if error_message4 %}
+                        <p style="color: red;">{{ error_message4 }}</p>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="signup-password-input">パスワード(半角英数)</label>
@@ -52,15 +58,27 @@
                     name="password2"
                     id="signup-password-confirmation-input"
                     />
+                    {# エラーメッセージの表示２ パスワード不一致 #}
+                    {% if error_message3 %}
+                        <p style="color: red;">{{ error_message3 }}</p>
+                    {% endif %}
                 </div>
                 <div class="registration-button-container">
-                    <button type="submit" class="" >
+                    {# エラーメッセージの表示１ 空の入力フォーム #}
+                    {% if error_message1 %}
+                        <p style="color: red;">{{ error_message1 }}</p>
+                    {% endif %}
+                    {# エラーメッセージの表示６ 登録失敗 #}
+                    {% if error_message6 %}
+                        <p style="color: red;">{{ error_message6 }}</p>
+                    {% endif %}
+                    <button type="submit" class="registration-button" >
                         会員登録
                     </button>
                 </div>
                 <div>
-                    <button class="">
-                        <a  href="{{ url_for('login') }}">
+                    <button class="registration-button">
+                        <a href="{{ url_for('login') }}" style="text-decoration:none;color:black;">
                             ログインする
                         </a>
                     </button>
