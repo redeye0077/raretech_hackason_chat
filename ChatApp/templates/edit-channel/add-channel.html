@@ -1,48 +1,10 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>チャンネル追加</title>
-</head>
-<body>
-    <h1>{{ pagetitle }}</h1>
-
-    <!-- エラーメッセージの表示 -->
-    {% if error_message_brank %}
-        <p style="color: red;">{{ error_message_brank }}</p>
-    {% endif %}
-
-    {% if error_message_duplication %}
-        <p style="color: blue;">{{ error_message_duplication }}</p>
-    {% endif %}
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <p class="flashes">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <form action="{{ url_for('signout') }}" method="post">
-        <div>
-            <a href="/signout" class="btn-signout">サインアウト</a>
-        </div>
-    </form>
-    <!-- チャンネル追加フォーム -->
-    <form action="{{ url_for('channelAdd') }}" method="post">
-        <div>
-            <label for="channel_name">チャンネル名:</label>
-            <input type="text" id="channel_name" name="channel_name">
-        </div>
-        <div>
-            <label for="channel_description">チャンネル説明:</label>
-            <textarea id="channel_description" name="channel_description"></textarea>
-        </div>
-        <div>
-            <button type="submit">追加</button>
-        </div>
-    </form>
-    
-</body>
-</html>
+{% extends 'base.html' %} {% block title %}
+<title>{{ pagetitle }}</title>
+{% endblock %}{% block nav_buttons %}
+    <li><a href="{{ url_for('index')}}" class="button">ホームへ戻る</a></li>
+    <li><a href="{{ url_for('signout')}}" class="button">サインアウト</a></li>
+{% endblock nav_buttons %}{% block body %}
+<main>
+hogehoge
+</main>
+{% endblock body %}
