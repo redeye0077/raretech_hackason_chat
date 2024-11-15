@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block title %}
-<title>部屋削除</title>
+<title>{{ pagetitle }}</title>
 {% endblock %}{% block nav_buttons %}
     <li><a href="{{ url_for('index')}}" class="button">ホームへ戻る</a></li>
     <li><a href="{{ url_for('signout')}}" class="button">サインアウト</a></li>
@@ -7,9 +7,11 @@
 <main>
   <div id="delete-channel-modal" class="modal">
     <div class="modal-header">
-        <h2>Delete channel</h2>
+        <h2>{{ pagetitle }}</h2>
     </div>
     <div class="modal-body">
+      {{ channel.name }}
+      {{ channel.description }}
       {% if error_message %}
           <p style="color: red;">{{ error_message }}</p>
       {% endif %}

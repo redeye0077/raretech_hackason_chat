@@ -14,7 +14,6 @@ app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
 def signup():
     return render_template('registration/signup.html')
 
-
 # 新規登録画面 (POSTメソッドのみ)
 @app.route('/signup', methods=['POST'])
 def userSignup():
@@ -67,12 +66,6 @@ def userSignup():
 def login():
     return render_template('registration/login.html')
 
-#ホーム画面の表示
-@app.route('/index')
-def index():
-    channels = PostModel.getChannel()
-    return render_template('index.html', channels=channels)
-
 # ログイン処理
 @app.route('/login', methods=['POST'])
 def userLogin():
@@ -101,9 +94,15 @@ def userLogin():
     flash('ログイン成功！')
     return redirect(url_for('index'))
 
+#ホーム画面の表示
+@app.route('/index')
+def index():
+    channels = PostModel.getChannel()
+    pagetitle = "ホーム"
+    return render_template('index.html', channels=channels, pagetitle=pagetitle)
 
 #サインアウト処理
-@app.route('/signout', methods=['POST'])
+@app.route('/signout')
 def signout():
     session.clear()
     return redirect('/login')
@@ -114,14 +113,16 @@ def channel(channel_id):
     # データベースから該当のチャンネルを取得
     channel = PostModel.getChannelId(channel_id)
     if channel:
-        return render_template('edit-channel/delete-channel.html',channel=channel)
+        pagetitle = "削除"
+        return render_template('edit-channel/delete-channel.html',channel=channel, pagetitle=pagetitle)
     else:
         return "チャンネルが見つかりませんでした。", 404
 
 # 部屋追加画面
 @app.route('/channel_add')
 def channelAddIndex():
-    return render_template('edit-channel/add-channel.html')
+    pagetitle = "作成"
+    return render_template('edit-channel/add-channel.html', pagetitle=pagetitle)
 
 # 部屋追加処理
 @app.route('/channel_add',methods=['POST'])
