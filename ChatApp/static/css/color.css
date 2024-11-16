@@ -1,0 +1,11 @@
+:root {
+    --base: #FFFDF6;
+    --black: #000000;
+    --dark_green: #343B16;
+    --pale_green: rgb(115 136 81 /.25);
+    --azuki: #69113C;
+    --pale_azuki: rgb(105 17 60 /.5);
+    --sky: #EAF6FD;
+    --error_red: #C82137;
+    --gray: #D9D9D9;                                        
+}
