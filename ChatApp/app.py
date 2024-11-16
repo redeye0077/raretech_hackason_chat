@@ -28,39 +28,49 @@ def userSignup():
                                  
  # フォームの入力検証
     if name == '' or email == '' or password1 == '' or password2 == '':
-        error = '空の入力フォームがあります'
+        error = '空のフォームがあるようです'
         return render_template('registration/signup.html', error_message1=error)
     
-    elif password1 != password2:
-        error = 'パスワードが一致しません。もう一度入力してください。'
+    if email == '':
+        error = '入力されていません'
         return render_template('registration/signup.html', error_message2=error)
+    
+    elif password1 == '':
+        error = '入力されていません'
+        return render_template('registration/signup.html', error_message3=error)
+    
+    elif password1 != password2:
+        error = '2つのパスワードの値が異なっています'
+        return render_template('registration/signup.html', error_message4=error)
     
     elif re.match(pattern, email) is None:
         error = '正しいメールアドレスの形式ではありません'
-        return render_template('registration/signup.html', error_message3=error)
+        return render_template('registration/signup.html', error_message5=error)
     
     # 重複チェック：既に登録済みのメールアドレスがあるか確認
     if PostModel.getUser(email):
-        error = 'このメールアドレスは既に登録されています。別のメールアドレスを使用してください。'
-        return render_template('registration/signup.html', error_message4=error)
+        error = 'このメールアドレスは既に登録されています'
+        return render_template('registration/signup.html', error_message6=error)
+    
+
 
      #名前の重複チェック
     if PostModel.getUserByName(name):
-        error = 'この名前は既に使用されています。別の名前を使用してください。'
-        return render_template('registration/signup.html', error_message5=error)
+        error = '既に使われています'
+        return render_template('registration/signup.html', error_message7=error)
 
     # パスワードのハッシュ化
     password = hashlib.sha256(password1.encode('utf-8')).hexdigest()
     
     # 入力データが検証を通過した場合、データベースに挿入
-    if PostModel.insert_user(name, email, password):
-        session['id'] = str(id)
+    user_id = PostModel.insert_user(name, email, password)
+    if user_id:
+        session['id'] = user_id  # ここで整数のユーザーIDをそのまま格納
         flash('ユーザー登録が完了しました！')
         return redirect('/login')
    
-    else:
-        error = 'ユーザー登録に失敗しました。'
-        return render_template('registration/signup.html', error_message6=error)
+    # データベース登録が失敗した場合、何も表示せずリダイレクト
+    return redirect('/signup')
 
 # ログインページの表示
 @app.route('/login')
@@ -81,24 +91,24 @@ def userLogin():
 
     # 入力チェック
     if not email or not password:
-        error = '空の入力フォームがあります'
-        return render_template('registration/login.html', error_message7=error)
+        error = '空のフォームがあるようです'
+        return render_template('registration/login.html', error_message9=error)
 
     # ユーザーの取得と存在チェック
     user = PostModel.getUser(email)
     if user is None:
-        error = 'このユーザーは存在しません'
-        return render_template('registration/login.html', error_message8=error)
+        error = 'この会員は存在しません'
+        return render_template('registration/login.html', error_message10=error)
 
     # パスワードのハッシュ化と照合
     hashPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
     if hashPassword != user["password"]:
         error = 'パスワードが間違っています！'
-        return render_template('registration/login.html', error_message9=error)
+        return render_template('registration/login.html', error_message11=error)
 
     # ログイン成功時の処理
     session['user_id'] = user["id"]
-    flash('ログイン成功！')
+    flash('')
     return redirect(url_for('index'))
 
 
