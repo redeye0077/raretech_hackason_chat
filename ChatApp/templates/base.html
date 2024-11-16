@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% block title %}{% endblock %}
+        <title>{{ pagetitle }}</title>
         <link rel="icon" href="../static/img/favicon.ico">
         <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">
     </head>
-    <body>
+    <body class="page-wrapper">
         <header class="header-wrapper">
             <div class="header-column">
                 <img src="../static/img/oneweek-logo.png" alt="logo" class="logo">

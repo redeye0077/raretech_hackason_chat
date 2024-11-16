@@ -1,9 +1,7 @@
-{% extends 'base.html' %} {% block title %}
-<title>部屋追加</title>
-{% endblock %}{% block nav_buttons %}
-    <li><a href="{{ url_for('index')}}" class="button">ホームへ戻る</a></li>
-    <li><a href="{{ url_for('signout')}}" class="button">サインアウト</a></li>
-{% endblock nav_buttons %}{% block body %}
+{% extends 'base.html' %} {% block nav_buttons %}
+    <li class="button__text-center"><a href="{{ url_for('index')}}" class="azuki-button">ホームへ戻る</a></li>
+    <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
+{% endblock %}{% block body %}
 <main>
 hogehoge
 </main>
