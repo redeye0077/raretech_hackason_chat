@@ -45,6 +45,11 @@ button {
   height: 100vh;
 }
 
+/* ヘッダーを差し引いたページ高さ */
+.main-wrapper {
+  height: calc(100vh - 112px);
+}
+
 /* あずきボタンのデザイン */
 .azuki-button {
   display: inline-block;
