@@ -162,7 +162,8 @@ def messageIndex(channel_id):
     name = PostModel.getChannelId(channel_id)
     description = PostModel.getChannelId(channel_id)
     messages = PostModel.getMessage(channel_id)
-    return render_template('detail.html', channel=channel, messages=messages, user_id=user_id, name=name, description=description)
+    channel_name = channel.get('name') + '部屋'
+    return render_template('detail.html', channel=channel, messages=messages, user_id=user_id, name=name, description=description, pagetitle=channel_name)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
