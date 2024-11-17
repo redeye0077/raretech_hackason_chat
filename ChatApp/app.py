@@ -15,7 +15,6 @@ app.debug = True
 def signup():
     return render_template('registration/signup.html')
 
-
 # 新規登録画面 (POSTメソッドのみ)
 @app.route('/signup', methods=['POST'])
 def userSignup():
@@ -72,32 +71,39 @@ def login():
 @app.route('/login', methods=['POST'])
 def userLogin():
     email = request.form.get('email')
-    
-    # フォームが空かどうかをチェック
-    if not email:
-        flash('空のフォームがあるようです')
-        return redirect('/login')
-    
-    # メールアドレスに対応するユーザーの取得
-    user = PostModel.getUser(email)
-    
-    # ユーザーが見つからない場合のエラー処理
-    if not user:
-        flash('ユーザーが見つかりません。正しいメールアドレスを入力してください。')
-        return redirect('/login')
-    
-    # ユーザーが見つかり、セッションにユーザーIDを設定
-    session['user_id'] = user["id"]
-    return redirect('/index')
+    password = request.form.get('password')
 
-#ホーム画面
+    # 入力チェック
+    if not email or not password:
+        error = '空のフォームがあるようです'
+        return render_template('registration/login.html', error_message9=error)
+
+    # ユーザーの取得と存在チェック
+    user = PostModel.getUser(email)
+    if user is None:
+        error = 'この会員は存在しません'
+        return render_template('registration/login.html', error_message10=error)
+
+    # パスワードのハッシュ化と照合
+    hashPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    if hashPassword != user["password"]:
+        error = 'パスワードが間違っています！'
+        return render_template('registration/login.html', error_message11=error)
+
+    # ログイン成功時の処理
+    session['user_id'] = user["id"]
+    flash('')
+    return redirect(url_for('index'))
+
+#ホーム画面の表示
 @app.route('/index')
 def index():
     channels = PostModel.getChannel()
-    return render_template('index.html', channels=channels)
+    pagetitle = "ホーム"
+    return render_template('index.html', channels=channels, pagetitle=pagetitle)
 
 #サインアウト処理
-@app.route('/signout', methods=['POST'])
+@app.route('/signout')
 def signout():
     session.clear()
     return redirect('/login')
@@ -108,14 +114,16 @@ def channel(channel_id):
     # データベースから該当のチャンネルを取得
     channel = PostModel.getChannelId(channel_id)
     if channel:
-        return render_template('edit-channel/delete-channel.html',channel=channel)
+        pagetitle = "削除"
+        return render_template('edit-channel/delete-channel.html',channel=channel, pagetitle=pagetitle)
     else:
         return "チャンネルが見つかりませんでした。", 404
 
 # 部屋追加画面
 @app.route('/channel_add')
 def channelAddIndex():
-    return render_template('edit-channel/add-channel.html')
+    pagetitle = "作成"
+    return render_template('edit-channel/add-channel.html', pagetitle=pagetitle)
 
 # 部屋追加処理
 @app.route('/channel_add',methods=['POST'])
@@ -167,3 +175,4 @@ def messageIndex(channel_id):
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
+    
