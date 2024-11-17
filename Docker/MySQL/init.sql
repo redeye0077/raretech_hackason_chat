@@ -42,4 +42,5 @@ INSERT INTO users(id, name, email, password, login_count)VALUES(1,'テスト','t
 INSERT INTO users(id, name, email, password, login_count)VALUES(2,'テ','test2@gmail.com','aaaa', 1);
 INSERT INTO channels(id, user_id, name, description)VALUES(1, 1,'ぼっち部屋','テストさんの孤独な部屋です');
 INSERT INTO channels(id, user_id, name, description)VALUES(2, 1,'ぼっち','テストさん');
-INSERT INTO messages(id, user_id, channel_id, content)VALUES(1, 1, 1, '誰かかまってください、、');
+INSERT INTO messages(id, user_id, channel_id, content, created_at)VALUES(1, 1, 1, '誰かかまってください、、', '2024-11-11 11:11:00');
+INSERT INTO messages(id, user_id, channel_id, content, created_at)VALUES(2, 2, 1, 'アーニャ', '2024-10-10 10:10:00');

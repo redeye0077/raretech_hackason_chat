@@ -8,6 +8,7 @@ from util.DB import DB
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
+app.debug = True
 
 # 最初のページを/loginにリダイレクトする
 @app.route('/')
@@ -174,6 +175,18 @@ def deleteChannel(channel_id):
     PostModel.deleteChannel(channel_id)
     flash('部屋を削除しました')
     return redirect(url_for('index'))
+
+# メッセージ画面
+@app.route('/message/<int:channel_id>')
+def messageIndex(channel_id):
+    user_id = session.get("user_id")
+    # データベースから該当のチャンネルを取得
+    channel = PostModel.getChannelId(channel_id)
+    name = PostModel.getChannelId(channel_id)
+    description = PostModel.getChannelId(channel_id)
+    messages = PostModel.getMessage(channel_id)
+    channel_name = channel.get('name') + '部屋'
+    return render_template('detail.html', channel=channel, messages=messages, user_id=user_id, name=name, description=description, pagetitle=channel_name)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

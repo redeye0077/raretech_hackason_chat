@@ -21,6 +21,9 @@
                 <form action="{{ url_for('channel', channel_id=channel.id) }}" method="get" style="display:inline;">
                     <button type="submit">削除画面へ</button>
                 </form>
+                <form action="{{ url_for('messageIndex', channel_id=channel.id) }}" method="get" style="display:inline;">
+                    <button type="submit">部屋画面へ</button>
+                </form>
             </li>
         {% endfor %}
     </ul>
