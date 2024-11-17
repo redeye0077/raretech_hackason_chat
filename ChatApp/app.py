@@ -188,6 +188,16 @@ def messageIndex(channel_id):
     channel_name = channel.get('name') + '部屋'
     return render_template('detail.html', channel=channel, messages=messages, user_id=user_id, name=name, description=description, pagetitle=channel_name)
 
+    # 404エラーハンドラー
+@app.errorhandler(404)
+def show_error404(error):
+    return render_template('error/404.html'), 404
+
+# 500エラーハンドラー
+@app.errorhandler(500)
+def show_error500(error):
+    return render_template('error/500.html'), 500
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
     
