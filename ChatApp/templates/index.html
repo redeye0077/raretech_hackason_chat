@@ -1,20 +1,26 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>チャンネル一覧</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <h1>{{ pagetitle }}</h1>
+{% extends 'base.html' %}  
+
+{% block nav_buttons %}
+    <a href="{{ url_for('channel_add')}}" class="button">部屋を作る</a></li>
+    <a href="{{ url_for('signout')}}" class="button">サインアウト</a></li>
+{% endblock %}
+
+{% block body %}
+{# フラッシュ表示 #}
+<div class="">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-                <p class="flashes">{{ message }}</p>
+                <p>{{ message }}</p>
             {% endfor %}
         {% endif %}
     {% endwith %}
+</div>
+{# チャンネルリスト #}
+<div class="">
+    <h2>習慣部屋一覧</h2>
     <ul class="channel-list">
+        <!--class="channel-listにlist-style: none;padding-left:0を記述"-->
         {% for channel in channels %}
             <li>
                 <strong>{{ channel.name }}</strong>: {{ channel.description }}
@@ -27,5 +33,6 @@
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>
+
+{% endblock %}
