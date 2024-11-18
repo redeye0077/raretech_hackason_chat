@@ -38,17 +38,12 @@ button {
     text-align: center;
   }       
   
-/* 全ページのサイズ・背景色の指定 */
+/* 全ページの幅・背景色の指定 */
 .page-wrapper {
   background-color: var(--base);
   width: 100vw;
-  height: 100vh;
 }
 
-/* ヘッダーを差し引いたページ高さ */
-.main-wrapper {
-  height: calc(100vh - 112px);
-}
 
 /* あずきボタンのデザイン */
 .azuki-button {
