@@ -28,6 +28,10 @@ input:focus{
     outline-width: 2px;
   }
   
+input:hover {
+  cursor: pointer;
+}
+
 /* ボタンタグの初期設定 */
 button {
     background-color: transparent;
@@ -44,6 +48,9 @@ button {
   width: 100vw;
 }
 
+h2 {
+  font-size: 24px;
+}
 
 /* あずきボタンのデザイン */
 .azuki-button {
