@@ -3,6 +3,30 @@
     <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
 {% endblock %}{% block body %}
 <main>
-hogehoge
+    <div class="edit-channel-container">
+        <section class="edit-channel-column-left">
+            <div>
+                <h2>新しい部屋を作成することができます。</h2>
+                <p class="edit-channel-text__alert">作成後、”部屋名” 及び、”部屋の説明” は変更ができません。</p>
+            </div>
+            <!-- <div></div>ここにフラッシュ表示を追加 -->
+            <form id="add-channel" action="/channel_add" method="post">                            
+                <div class="add-channel-form-unit"> 
+                    <label for="channel_name">作成する部屋の名前を入力してください。(必須 :15文字以下)</label>
+                    <div class="input-top-wrapper">
+                        <input class="add-channel-form__input--top" type="text" name="channel_name" id="channel_name">
+                        <p class="channel-name-suffix">部屋</p>
+                    </div>  
+                </div>
+                <div class="add-channel-form-unit">
+                    <label for="channel_description">参加する方がわかりやすいよう、部屋の説明を記入しましょう。(必須 :50文字以下)</label>
+                    <input class="add-channel-form__input--bottom" type="text" name="channel_description" id="channel_description">
+                </div>
+            </form>
+            <button form="add-channel" class="azuki-button edit-channel-btn">部屋を作る</button>
+    
+        </section>
+        <img class="edit-channel-img" src="css/img/.png" alt=""><!-- 画像名わかり次第追記 -->
+    </div>      
 </main>
 {% endblock body %}
