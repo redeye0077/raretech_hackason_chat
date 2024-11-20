@@ -142,5 +142,18 @@ class PostModel:
             abort(500)
         finally:
             cur.close()
+
+    def createMessage(user_id, channel_id, content, created_at):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "INSERT INTO messages(user_id, channel_id, content, created_at) VALUES(%s, %s, %s, %s)"
+            cur.execute(sql, (user_id, channel_id, content, created_at))
+            conn.commit()
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
         
 
