@@ -1,31 +1,34 @@
-{% extends 'base.html' %} {% block title %}
-<title>{{ pagetitle }}</title>
-{% endblock %}{% block nav_buttons %}
-    <li><a href="{{ url_for('index')}}" class="button">ホームへ戻る</a></li>
-    <li><a href="{{ url_for('signout')}}" class="button">サインアウト</a></li>
-{% endblock nav_buttons %}{% block body %}
+{% extends 'base.html' %} {% block nav_buttons %}
+    <li class="button__text-center"><a href="{{ url_for('index')}}" class="azuki-button">ホームへ戻る</a></li>
+    <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
+{% endblock %}{% block body %}
 <main>
-  <div id="delete-channel-modal" class="modal">
-    <div class="modal-header">
-        <h2>{{ pagetitle }}</h2>
-    </div>
-    <div class="modal-body">
-      {{ channel.name }}
-      {{ channel.description }}
-      {% if error_message %}
-          <p style="color: red;">{{ error_message }}</p>
-      {% endif %}
-      <p>削除ボタンを押すとチャンネルが消えます</p>
-      <p>本当によろしいですか？</p>
-      <form action="{{ url_for('deleteChannel', channel_id=channel.id) }}" method="post">
-        <button id="delete-channel-confirmation-button" type="submit">削除</button>
-      </form>
-    </div>
-  </div>
+  <div class="edit-channel-container">
+    <section class="edit-channel-column-left">
+        <div>
+            <h2>{{ channel.name }}を削除します。</h2>
+            <p class="edit-channel-text__alert">部屋を削除すると、会話データも全て削除され復元はできません。</p>
+            <p>本当に削除してもよろしいですか？</p>
+        </div>
+        <!-- <div></div>ここにフラッシュ表示を追加 -->
+        <div>
+          <div>
+            <p>{{ channel.name }}</p>
+            <p>{{ channel.description}}</p>
+          </div>
+        </div>
+        <form action="{{ url_for('deleteChannel', channel_id = channel.id)}}" method="post">
+          <button class="azuki-button edit-channel-button">部屋を削除</button>
+        </form>
+    </section>
+    <img class="edit-channel-img" src="css/img/.png" alt=""><!-- 画像名わかり次第追記 -->
+</div>      
+
+
+
+
+
+
+
 </main>
 {% endblock body %}
-
-
-
-
-
