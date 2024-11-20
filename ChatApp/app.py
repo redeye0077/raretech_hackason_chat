@@ -1,6 +1,6 @@
 import os
 import re
-import pytz
+import pytz # type: ignore
 from flask import Flask, render_template, request, redirect, url_for, make_response, flash, session
 from model import PostModel  # model.pyをインポート
 from ast import Return
