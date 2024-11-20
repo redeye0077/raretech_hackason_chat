@@ -16,6 +16,16 @@
                     気になる部屋に遊びに行こう！
                 </h2>
                 <div>
+                    {# フラッシュ表示（登録完了） #}
+                    <div class="">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p>{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
                     <label for="emai-input">メールアドレス</label>
                     <input
                         type="email"
@@ -31,10 +41,22 @@
                         placeholder="パスワードを入力してください"
                         name="password"
                         id="password-input"
-                    /> 
+                    />
+                    {# エラーメッセージの表示１１ パスワード間違い #}
+                    {% if error_message11 %}
+                        <p style="color: red;">{{ error_message11 }}</p>
+                    {% endif %}
                 </div>
                 <div class="registration-button-container">
                     <button type="submit" class="registration-button">ログイン</button>
+                    {# エラーメッセージの表示９ 空の入力フォーム #}
+                    {% if error_message9 %}
+                        <p style="color: red;">{{ error_message9 }}</p>
+                    {% endif %}
+                    {# エラーメッセージの表示１０ 空の入力フォーム #}
+                    {% if error_message10  %}
+                        <p style="color: red;">{{ error_message10 }}</p>
+                    {% endif %}
                 </div>
                 <p>アカウントをお持ちでない方は、会員登録</p>
                 <button class="registration-button">
