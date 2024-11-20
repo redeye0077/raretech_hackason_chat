@@ -1,8 +1,10 @@
 import os
 import re
+import pytz
 from flask import Flask, render_template, request, redirect, url_for, make_response, flash, session
 from model import PostModel  # model.pyをインポート
 from ast import Return
+from datetime import datetime,timezone
 import hashlib
 from util.DB import DB
 
@@ -187,6 +189,20 @@ def messageIndex(channel_id):
     messages = PostModel.getMessage(channel_id)
     channel_name = channel.get('name') + '部屋'
     return render_template('detail.html', channel=channel, messages=messages, user_id=user_id, name=name, description=description, pagetitle=channel_name)
+
+# メッセージの投稿
+@app.route('/message_add',methods=['POST'])
+def messageAdd():
+    user_id = session.get("user_id")
+    content = request.form.get('content')
+    channel_id = request.form.get('channel_id')
+    japan_timezone = pytz.timezone('Asia/Tokyo')
+    utc_now = datetime.now(timezone.utc)
+    japan_time = utc_now.astimezone(japan_timezone)
+    created_at = japan_time
+    if content:
+        PostModel.createMessage(user_id, channel_id, content, created_at)
+    return redirect('/message/{channel_id}'.format(channel_id = channel_id))
 
     # 404エラーハンドラー
 @app.errorhandler(404)
