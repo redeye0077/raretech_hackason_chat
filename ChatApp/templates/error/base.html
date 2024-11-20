@@ -5,14 +5,32 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            {% block title %}{% endblock %}
+            {% block title %}
+            {% endblock %}
         </title>
-        <link
-         rel="stylesheet"
-         href="{{url_for('static',filename='css/styles.css')}}"
-        />
+        <link rel="icon" href="../static/img/favicon.ico">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}"/>
     </head>
-    <body>
-        {% block body %} {% endblock %}
+    <body class="page-wrapper">
+        <header class="header-wrapper">
+            <div class="header-column">
+                <img src="../static/img/oneweek-logo.png" alt="logo" class="logo">
+                <h2 class="header-title">{% block title %}{% endblock %}</h2>  
+            </div>
+            <div>
+                <ul class="header-column">
+                    <li class="button__text-center"><a href="{{ url_for('index')}}" class="azuki-button">ホームへ戻る</a></li>
+                    <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
+                </ul>
+            </div>
+        </header>
+        <div class="">
+            <img
+            src="{{ url_for('static', filename='error.png') }}"
+            class="error-main-pic"
+            />
+        </div>
+        {% block body %}
+        {% endblock %}
     </body>
 </html>
