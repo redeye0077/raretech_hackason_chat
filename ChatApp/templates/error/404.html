@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+４０４エラー
+{% endblock %}
+
+{% block body %}
+    <div class="">
+        <img
+        src="{{ url_for('static', filename='error.png') }}"
+        class="error-main-pic"
+        />
+    </div>
+    <div class="">
+        <p class="">
+            ４０４エラー
+        </p>
+    </div>
+    <div>
+        <p class="">
+            ページが見つかりません。
+        </p>
+    </div>
+{% endblock %}

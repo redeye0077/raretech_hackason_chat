@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+５００エラー
+{% endblock %}
+
+{% block body %}
+    <div class="">
+        <img
+        src="{{ url_for('static', filename='error.png') }}"
+        class="error-main-pic"
+        />
+    </div>
+    <div class="">
+        <p class="">
+            ５００エラー
+        </p>
+    </div>
+    <div>
+        <p class="">
+            エラーが発生しました。
+        </p>
+        <p class="">
+            時間をおいてからもう一度お試しいただくか
+        </p>
+        <p class="">
+            管理者にお問い合わせください。
+        </p>
+    </div>
+{% endblock %}

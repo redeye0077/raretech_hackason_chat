@@ -19,8 +19,8 @@
             </div>
             <div>
                 <ul class="header-column">
-                    {% block nav_buttons %}
-                    {% endblock %}
+                    <li class="button__text-center"><a href="{{ url_for('index')}}" class="azuki-button">ホームへ戻る</a></li>
+                    <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
                 </ul>
             </div>
         </header>
