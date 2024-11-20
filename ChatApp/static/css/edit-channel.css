@@ -35,3 +35,37 @@
     margin-top: 2rem;
 }
 
+/* ---- 部屋追加画面 ---- */
+
+.add-channel-form{
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+.input-suffix-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+.add-channel-form__input--top {
+    border-radius: .5rem;
+    padding: 1.5rem 1rem;
+    width: 17.5em;
+    max-width: 100%;
+  }
+
+.add-channel-form__suffix {
+    font-size: 24px;
+    margin-left: 0.7rem;
+  }
+
+.add-channel-form__input--bottom {
+    border-radius: .5rem;
+    padding: 1.5rem 1rem;
+}
+
+
+
+/* ---- 部屋削除画面 ---- */
