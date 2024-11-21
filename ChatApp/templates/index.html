@@ -7,7 +7,7 @@
 
 {% block body %}
 {# フラッシュ表示 #}
-<div class="">
+<div class="index-flash">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -17,10 +17,11 @@
     {% endwith %}
 </div>
 {# チャンネルリスト #}
-<div class="">
+<div class="channel-title">
     <h2>習慣部屋一覧</h2>
+</div>
+<div class="channels-list-container">
     <ul class="channel-list">
-        <!--class="channel-listにlist-style: none;padding-left:0を記述"-->
         {% for channel in channels %}
             <li>
                 <strong>{{ channel.name }}</strong>: {{ channel.description }}
@@ -34,5 +35,6 @@
         {% endfor %}
     </ul>
 </div>
+<d
 
 {% endblock %}
