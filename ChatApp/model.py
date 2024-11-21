@@ -142,5 +142,32 @@ class PostModel:
             abort(500)
         finally:
             cur.close()
-        
 
+    @staticmethod
+    def getMessageById(message_id):
+        try:
+            conn = DB.getConnection()
+            with conn.cursor(pymysql.cursors.DictCursor) as cur:
+                sql = "SELECT * FROM messages WHERE id = %s"
+                cur.execute(sql, (message_id,))
+                return cur.fetchone()
+        except Exception as e:
+            print(f"エラーが発生しました (getMessageById): {e}")
+            return None
+        finally:
+            if conn:
+                conn.close()
+
+    @staticmethod
+    def deleteMessage(message_id):
+        try:
+            conn = DB.getConnection()
+            with conn.cursor() as cur:
+                sql = "DELETE FROM messages WHERE id = %s"
+                cur.execute(sql, (message_id,))
+                print(f"クエリ実行後の行数: {cur.rowcount}")
+                conn.commit()
+                return cur.rowcount > 0
+        except Exception as e:
+            print(f"削除エラー: {e}")
+            return False
