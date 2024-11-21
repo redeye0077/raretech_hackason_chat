@@ -188,7 +188,7 @@ def messageIndex(channel_id):
     channel_name = channel.get('name') + '部屋'
     return render_template('detail.html', channel=channel, messages=messages, user_id=user_id, name=name, description=description, pagetitle=channel_name)
 
- # 404エラーハンドラー
+ #　404エラーハンドラー
 @app.errorhandler(404)
 def show_error404(error):
     return render_template('error/404.html'), 404
@@ -198,27 +198,35 @@ def show_error404(error):
 def show_error500(error):
     return render_template('error/500.html'), 500
 
-#メッセージ削除
+#　メッセージ削除
 @app.route('/message/<int:channel_id>/delete/<int:message_id>', methods=['POST'])
 def deleteMessage(channel_id, message_id):
     user_id = session.get("user_id")
 
+    # メッセージを取得
     message = PostModel.getMessageById(message_id)
 
+    # メッセージが見つからない場合
     if not message:
         error = "メッセージが見つかりません"
-    elif message['user_id'] != user_id:
-        error = "削除権限がありません"
         return render_template('message.html', error_message12=error, channel_id=channel_id)
+
+    # メッセージの削除権限がない場合
+    if message['user_id'] != user_id:
+        error = "削除権限がありません"
+        return render_template('message.html', error_message13=error, channel_id=channel_id, message=None)
+
+    # メッセージの削除処理
     result = PostModel.deleteMessage(message_id)
 
+    # 削除に失敗した場合
     if not result:
         error = "メッセージの削除に失敗しました"
-        return render_template('message.html', error_message13=error, channel_id=channel_id)
+        return render_template('message.html', error_message14=error, channel_id=channel_id, message=message)
 
-   
+    # 成功した場合
     flash("メッセージを削除しました")
-    return redirect(url_for('message', channel_id=channel_id))
+    return redirect(url_for('messageIndex', channel_id=channel_id))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
