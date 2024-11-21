@@ -2,33 +2,26 @@
     <li class="button__text-center"><a href="{{ url_for('index')}}" class="azuki-button">ホームへ戻る</a></li>
     <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
 {% endblock %}{% block body %}
-<main>
+<main class="edit-channel-main-wrapper">
   <div class="edit-channel-container">
     <section class="edit-channel-column-left">
-        <div>
-            <h2>{{ channel.name }}を削除します。</h2>
-            <p class="edit-channel-text__alert">部屋を削除すると、会話データも全て削除され復元はできません。</p>
-            <p>本当に削除してもよろしいですか？</p>
+      <h2>{{ channel.name }}を削除します。</h2>
+      <div>
+          <p class="edit-channel__alert">部屋を削除すると、会話データも全て削除され復元はできません。</p>
+          <p class="edit-channel__danger">本当に削除してもよろしいですか？</p>
+      </div>
+      <!-- <div></div>ここにフラッシュ表示を追加 -->
+      <div class="delete-channel-display-wrapper">
+        <div class="delete-channel-display">
+          <p>{{ channel.name }}</p>
+          <p>{{ channel.description}}</p>
         </div>
-        <!-- <div></div>ここにフラッシュ表示を追加 -->
-        <div>
-          <div>
-            <p>{{ channel.name }}</p>
-            <p>{{ channel.description}}</p>
-          </div>
-        </div>
-        <form action="{{ url_for('deleteChannel', channel_id = channel.id)}}" method="post">
-          <button class="azuki-button edit-channel-button">部屋を削除</button>
-        </form>
+      </div>
+      <form class="edit-channel-button" action="{{ url_for('deleteChannel', channel_id = channel.id)}}" method="post">
+        <button class="azuki-button">部屋を削除</button>
+      </form>
     </section>
     <img class="edit-channel-img" src="css/img/.png" alt=""><!-- 画像名わかり次第追記 -->
 </div>      
-
-
-
-
-
-
-
 </main>
 {% endblock body %}
