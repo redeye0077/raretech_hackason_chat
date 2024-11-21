@@ -100,3 +100,6 @@
   gap: 1rem;
 }
 
+.delete-channel-display__name {
+  white-space: nowrap;
+}
