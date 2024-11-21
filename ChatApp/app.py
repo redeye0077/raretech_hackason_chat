@@ -117,6 +117,9 @@ def userLogin():
 def index():
     channels = PostModel.getChannel()
     pagetitle = "ホーム"
+    # 各チャンネルの名前に「部屋」を追加
+    for channel in channels:
+        channel['name'] += "部屋"
     return render_template('index.html', channels=channels, pagetitle=pagetitle)
 
 #サインアウト処理
@@ -132,6 +135,7 @@ def channel(channel_id):
     channel = PostModel.getChannelId(channel_id)
     if channel:
         pagetitle = "削除"
+        channel['name'] += " 部屋"
         return render_template('edit-channel/delete-channel.html',channel=channel, pagetitle=pagetitle)
     else:
         return "チャンネルが見つかりませんでした。", 404
@@ -153,6 +157,9 @@ def channelAdd():
     if not channel_name or not channel_description:
         error = '空のフォームがあるようです'
         return render_template('edit-channel/add-channel.html', error_message_brank=error)
+    elif len(channel_name) > 15 or len(channel_description) > 50:
+        error = '入力できる文字数を超えています。'
+        return render_template('edit-channel/add-channel.html', error_message_over=error)
     # チャンネル名の重複チェック
     existing_channel = PostModel.getChannelName(channel_name)
     if existing_channel:
