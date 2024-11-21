@@ -10,7 +10,11 @@
           <p class="edit-channel__alert">部屋を削除すると、会話データも全て削除され復元はできません。</p>
           <p class="edit-channel__danger">本当に削除してもよろしいですか？</p>
       </div>
-      <!-- <div></div>ここにフラッシュ表示を追加 -->
+      <div>
+        {% if error_message %}
+          <p class="flush__error">{{ error_message }}</p>
+        {% endif %}
+      </div>
       <div class="delete-channel-display-wrapper">
         <div class="delete-channel-display">
           <p class="delete-channel-display__name">{{ channel.name }}</p>
