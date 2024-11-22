@@ -26,10 +26,17 @@
   }   
 
 
-.edit-channel-text__alert {
+.edit-channel__alert {
     font-size: 20px;
   }
 
+.edit-channel__danger {
+  font-size: 20px;
+  color: var(--error_red);
+
+}
+
+  
 .edit-channel-button {
     margin-left: auto;
     margin-top: 2rem;
@@ -69,3 +76,30 @@
 
 
 /* ---- 部屋削除画面 ---- */
+
+.delete-channel-display-wrapper {
+  border: 1.5px solid black;
+  border-radius: 10px;
+  background-color: #ffffff;
+  min-height: 160px;
+  padding: 1.5rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-channel-display {
+  border: 1.5px solid var(--gray);
+  border-radius: 10px;
+  min-height: 88px;
+  min-width: 540px;
+  padding: 1.5rem 2rem;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.delete-channel-display__name {
+  white-space: nowrap;
+}

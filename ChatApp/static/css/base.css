@@ -68,3 +68,7 @@ h2 {
   background-color: var(--pale_azuki);
   transition: .5s;
 }
+
+.flush__error {
+  color: var(--error_red);
+}
