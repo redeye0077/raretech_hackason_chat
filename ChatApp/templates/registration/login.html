@@ -9,15 +9,15 @@
         />
         <div class="registration-form-wrapper">
             {#ログインフォーム#}
-            <form class="registration-form" action="{{ url_for('login') }}" method="post">
-                <h1>一習慣</h1>
-                <h2>
+            <form class="registration-form-login" action="{{ url_for('login') }}" method="post">
+                <h1 class="registration-title">一習慣</h1>
+                <p class="title message">
                     仲間とつながり習慣をそだてる
                     気になる部屋に遊びに行こう！
-                </h2>
+                </p>
                 <div>
                     {# フラッシュ表示（登録完了） #}
-                    <div class="">
+                    <div class="registration-flash">
                         {% with messages = get_flashed_messages() %}
                             {% if messages %}
                                 {% for message in messages %}
