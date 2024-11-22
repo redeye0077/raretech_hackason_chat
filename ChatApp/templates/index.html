@@ -6,35 +6,38 @@
 {% endblock %}
 
 {% block body %}
-{# フラッシュ表示 #}
-<div class="index-flash">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+<div class="index-main-container">
+    {# フラッシュ表示 #}
+    <div class="index-flash">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    {# チャンネルリスト #}
+    <div class="channels-list-container"></div>
+        <div class="channel-title">
+            <h2>習慣部屋一覧</h2>
+        </div>
+        <div class="channel-list">
+            <ul class="channel-list-style">
+                {% for channel in channels %}
+                    <li>
+                        <strong>{{ channel.name }}</strong>: {{ channel.description }}
+                        <form action="{{ url_for('channel', channel_id=channel.id) }}" method="get" style="display:inline;">
+                            <button type="submit">削除画面へ</button>
+                        </form>
+                        <form action="{{ url_for('messageIndex', channel_id=channel.id) }}" method="get" style="display:inline;">
+                            <button type="submit">部屋画面へ</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>
-{# チャンネルリスト #}
-<div class="channel-title">
-    <h2>習慣部屋一覧</h2>
-</div>
-<div class="channels-list-container">
-    <ul class="channel-list">
-        {% for channel in channels %}
-            <li>
-                <strong>{{ channel.name }}</strong>: {{ channel.description }}
-                <form action="{{ url_for('channel', channel_id=channel.id) }}" method="get" style="display:inline;">
-                    <button type="submit">削除画面へ</button>
-                </form>
-                <form action="{{ url_for('messageIndex', channel_id=channel.id) }}" method="get" style="display:inline;">
-                    <button type="submit">部屋画面へ</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
-<d
 
 {% endblock %}
