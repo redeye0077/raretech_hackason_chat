@@ -169,7 +169,7 @@ def channelAdd():
     else:
         PostModel.addChannel(user_id,channel_name, channel_description)
         flash('部屋を追加しました！')
-    return redirect(url_for('channelAddIndex'))
+        return redirect(url_for('index'))
 
 # 部屋削除処理
 @app.route('/channel_delete/<int:channel_id>/delete',methods=['POST'])
