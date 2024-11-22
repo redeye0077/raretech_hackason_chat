@@ -9,7 +9,15 @@
                 <h2>新しい部屋を作成することができます。</h2>
                 <p class="edit-channel-text__alert">作成後、”部屋名” 及び、”部屋の説明” は変更ができません。</p>
             </div>
-            <!-- <div></div>ここにフラッシュ表示を追加 -->
+            {% if error_message_brank %}
+                <p class="flush__error">{{ error_message_brank }}</p>
+            {% endif %}
+            {% if error_message_duplication %}
+                <p class="flush__error">{{ error_message_duplication }}</p>
+            {% endif %}
+            {% if error_message_over %}
+                <p class="flush__error">{{ error_message_over }}</p>
+            {% endif %}
             <form id="add-channel" action="/channel_add" method="post">                            
                 <div class="add-channel-form"> 
                     <label for="channel_name">作成する部屋の名前を入力してください。(必須 :15文字以下)</label>

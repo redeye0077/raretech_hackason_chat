@@ -135,7 +135,7 @@ def channel(channel_id):
     channel = PostModel.getChannelId(channel_id)
     if channel:
         pagetitle = "削除"
-        channel['name'] += " 部屋"
+        channel['name'] += "部屋"
         return render_template('edit-channel/delete-channel.html',channel=channel, pagetitle=pagetitle)
     else:
         return "チャンネルが見つかりませんでした。", 404
