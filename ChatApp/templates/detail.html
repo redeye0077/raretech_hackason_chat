@@ -8,12 +8,17 @@
     <p>{{ channel.description }}</p>
     <p>{{ channel.id }}</p>
 
-    <!-- メッセージの投稿者による条件分岐テスト -->
+    <!-- メッセージの投稿者による条件分岐・名前と時刻をセットで表示-->
     {% for message in messages %}
         {% if message.user_id == user_id %}
+            <p>{{ message.name }}</p>
             <p class="message—mine">{{ message.content }}</p>
+            <p>{{ message.created_at }}</p>
         {% else %}
-            <p class="message—others">{{ message.content }}</p> {% endif %}
+            <p>{{ message.name }}</p>       
+            <p class="message—others">{{ message.content }}</p> 
+            <p>{{ message.created_at }}</p>
+        {% endif %}
     {% endfor %}
 
     <form action="{{ url_for('messageAdd')}}" method="post">
