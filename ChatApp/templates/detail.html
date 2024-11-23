@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block nav_buttons %}
+    <li class="button__text-center"><a href="{{ url_for('index') }}" class="azuki-button">ホームへ戻る</a></li>
+    <li class="button__text-center"><a href="{{ url_for('channelAddIndex') }}" class="azuki-button">部屋を作る</a></li>
+    <li class="button__text-center"><a href="{{ url_for('signout') }}" class="azuki-button">サインアウト</a></li>
+{% endblock %}{% block body %}
+<main>
+    <!-- 変数が表示できるかテスト -->
+    <p>{{ channel.description }}</p>
+    <p>{{ channel.id }}</p>
+
+    <!-- メッセージフォームが機能するかテスト -->
+    {% for message in messages %}
+        <p>{{ message.content }}</p>
+    {% endfor %}
+
+    <form action="{{ url_for('messageAdd')}}" method="post">
+        <input type="hidden" name="channel_id" value="{{l channe.id }}">
+        <textarea name="content"></textarea>
+        <button>送信</button>
+    </form>
+    
+</main>
+{% endblock body %}
