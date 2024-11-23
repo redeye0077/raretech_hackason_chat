@@ -14,10 +14,18 @@
             <p>{{ message.name }}</p>
             <p class="message—mine">{{ message.content }}</p>
             <p>{{ message.created_at }}</p>
+            <!-- メッセージ投稿時刻のフォーマット変更 -->
+            {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
+            <p>{{ timestamp }}</p>
+            {% endwith %}
         {% else %}
             <p>{{ message.name }}</p>       
             <p class="message—others">{{ message.content }}</p> 
             <p>{{ message.created_at }}</p>
+            <!-- メッセージ投稿時刻のフォーマット変更 -->
+            {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
+            <p>{{ timestamp }}</p>
+            {% endwith %}
         {% endif %}
     {% endfor %}
 
