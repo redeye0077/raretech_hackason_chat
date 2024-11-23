@@ -14,7 +14,7 @@
     {% endfor %}
 
     <form action="{{ url_for('messageAdd')}}" method="post">
-        <input type="hidden" name="channel_id" value="{{l channe.id }}">
+        <input type="hidden" name="channel_id" value="{{ channel.id }}">
         <textarea name="content"></textarea>
         <button>送信</button>
     </form>
