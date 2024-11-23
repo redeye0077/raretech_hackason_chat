@@ -8,9 +8,12 @@
     <p>{{ channel.description }}</p>
     <p>{{ channel.id }}</p>
 
-    <!-- メッセージフォームが機能するかテスト -->
+    <!-- メッセージの投稿者による条件分岐テスト -->
     {% for message in messages %}
-        <p>{{ message.content }}</p>
+        {% if message.user_id == user_id %}
+            <p class="message—mine">{{ message.content }}</p>
+        {% else %}
+            <p class="message—others">{{ message.content }}</p> {% endif %}
     {% endfor %}
 
     <form action="{{ url_for('messageAdd')}}" method="post">
