@@ -133,7 +133,7 @@ class PostModel:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT me.id AS message_id, us.id AS user_id, us.name AS name, content, me.created_at AS created_at FROM messages AS me INNER JOIN users AS us ON me.user_id = us.id WHERE me.channel_id = %s;"
+            sql = "SELECT me.id AS message_id, us.id AS user_id, us.name AS name, content, me.created_at AS created_at FROM messages AS me INNER JOIN users AS us ON me.user_id = us.id WHERE me.channel_id = %s ORDER BY me.created_at ASC;"
             cur.execute(sql, (channel_id))
             messages = cur.fetchall()
             return messages
