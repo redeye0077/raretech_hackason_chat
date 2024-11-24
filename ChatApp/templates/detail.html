@@ -6,14 +6,13 @@
 <main>
     <!-- 変数が表示できるかテスト -->
     <p>{{ channel.description }}</p>
-    <p>{{ channel.id }}</p>
 
     <!-- メッセージの投稿者による条件分岐・名前と時刻をセットで表示-->
     {% for message in messages %}
         {% if message.user_id == user_id %}
             <p>{{ message.name }}</p>
             <p class="message—mine">{{ message.content }}</p>
-            <p>{{ message.created_at }}</p>
+            <form action="/delete_message" method="post"><button class="">削除</button></form> 
             <!-- メッセージ投稿時刻のフォーマット変更 -->
             {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
             <p>{{ timestamp }}</p>
@@ -21,7 +20,6 @@
         {% else %}
             <p>{{ message.name }}</p>       
             <p class="message—others">{{ message.content }}</p> 
-            <p>{{ message.created_at }}</p>
             <!-- メッセージ投稿時刻のフォーマット変更 -->
             {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
             <p>{{ timestamp }}</p>
