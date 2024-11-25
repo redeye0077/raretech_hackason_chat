@@ -18,7 +18,13 @@
         <div>
         <!-{# フラッシュ表示（登録完了） #} ->
         <div class="registration-flash-container">
+            {% with messages = get_flashed_messages() %} 
+            {% if messages %}
+            {% for message in messages %}
             <p class="registration-flash">{{ message }}</p>
+            {% endfor %}
+            {% endif %} 
+            {% endwith %}
         </div>
         <!- {#ログインフォーム#} ->
         <form
