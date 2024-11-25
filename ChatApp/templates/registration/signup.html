@@ -26,8 +26,8 @@
             name="name"
             id="signup-name-input"
             />
-            {# エラーメッセージの表示７ 登録済み名前 #} {% if error_message7
-            %}
+            {# エラーメッセージの表示７ 登録済み名前 #} 
+            {% if error_message7%}
             <p style="color: var(--error_red)">{{ error_message7 }}</p>
             {% endif %}
         </div>
@@ -42,12 +42,15 @@
             name="email"
             id="signup-email-input"
             />
-            {# エラーメッセージの表示２ 入力無 #} {% if error_message2 %}
+            {# エラーメッセージの表示２ 入力無 #} 
+            {% if error_message2 %}
             <p style="color: var(--error_red)">{{ error_message2 }}</p>
-            {% endif %} {# エラーメッセージの表示５ 形式違い #} {% if
+            {% endif %} 
+            {# エラーメッセージの表示５ 形式違い #} {% if
             error_message5 %}
             <p style="color: var(--error_red)">{{ error_message5 }}</p>
-            {% endif %} {# エラーメッセージの表示６ 登録済みメールアドレス #}
+            {% endif %} 
+            {# エラーメッセージの表示６ 登録済みメールアドレス #}
             {% if error_message6 %}
             <p style="color: var(--error_red)">{{ error_message6 }}</p>
             {% endif %}
@@ -63,7 +66,8 @@
             name="password1"
             id="signup-password-input"
             />
-            {# エラーメッセージの表示３ 入力無 #} {% if error_message3 %}
+            {# エラーメッセージの表示３ 入力無 #} 
+            {% if error_message3 %}
             <p style="color: var(--error_red)">{{ error_message3 }}</p>
             {% endif %}
         </div>
@@ -78,13 +82,14 @@
             name="password2"
             id="signup-password-confirmation-input"
             />
-            {# エラーメッセージの表示４ パスワード違い #} {% if error_message4
-            %}
+            {# エラーメッセージの表示４ パスワード違い #} 
+            {% if error_message4%}
             <p style="color: var(--error_red)">{{ error_message4 }}</p>
             {% endif %}
         </div>
         <div class="registration-button-container">
-            {# エラーメッセージの表示１空のフォーム #} {% if error_message1 %}
+            {# エラーメッセージの表示１空のフォーム #} 
+            {% if error_message1 %}
             <p style="color: var(--error_red)">{{ error_message1 }}</p>
             {% endif %}
             <div>
@@ -109,5 +114,4 @@
     </div>
     </div>
 </div>
-</body>
 {% endblock %}
