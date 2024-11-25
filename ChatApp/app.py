@@ -169,7 +169,7 @@ def channelAdd():
     else:
         PostModel.addChannel(user_id,channel_name, channel_description)
         flash('部屋を追加しました！')
-    return redirect(url_for('channelAddIndex'))
+        return redirect(url_for('index'))
 
 # 部屋削除処理
 @app.route('/channel_delete/<int:channel_id>/delete',methods=['POST'])
@@ -207,6 +207,8 @@ def messageAdd():
     utc_now = datetime.now(timezone.utc)
     japan_time = utc_now.astimezone(japan_timezone)
     created_at = japan_time
+    if not content:
+        return redirect('/message/{channel_id}'.format(channel_id = channel_id))
     if content:
         PostModel.createMessage(user_id, channel_id, content, created_at)
     return redirect('/message/{channel_id}'.format(channel_id = channel_id))

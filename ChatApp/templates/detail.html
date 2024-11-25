@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% block nav_buttons %}
+    <li class="button__text-center"><a href="{{ url_for('index') }}" class="azuki-button">ホームへ戻る</a></li>
+    <li class="button__text-center"><a href="{{ url_for('channelAddIndex') }}" class="azuki-button">部屋を作る</a></li>
+    <li class="button__text-center"><a href="{{ url_for('signout') }}" class="azuki-button">サインアウト</a></li>
+{% endblock %}{% block body %}
+<main>
+    <div class="detail-main-wrapper">
+        <p class="channel-description">{{ channel.description }}</p>
+        <div class="messages-area">
+            <div class="messages-wrapper">
+                {% for message in messages %}
+                    {% if message.user_id == user_id %}
+                        <div class="my-message">
+                            <p class="my-message__name">{{ message.name }}(自分)</p>
+                            <div class="my-message-elements-wrapper">
+                                <div class="my-message-elements__column">
+                                    <form action="/delete_message" method="post" class="my-message__delete-button-posi"><button class="my-message__delete-button">削除</button></form>      
+                                    <!-- メッセージ投稿時刻のフォーマット変更 -->
+                                    {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
+                                    <p class="my-message__timestamp">{{ timestamp }}</p>
+                                    {% endwith %}
+                                </div>
+                                <p class="my-message__content">{{ message.content }}</p> 
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="message">
+                            <p class="message__name">{{ message.name }}</p>       
+                            <div class="message-elements-wrapper">
+                                <p class="message__content">{{ message.content }}</p> 
+                                <!-- メッセージ投稿時刻のフォーマット変更 -->
+                                {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
+                                <p class="message__timestamp">{{ timestamp }}</p>
+                                {% endwith %}
+                            </div>   
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <form class="post-area" action="{{ url_for('messageAdd')}}" method="post">
+            <input type="hidden" name="channel_id" value="{{ channel.id }}">
+            <textarea class="post__textarea" name="content" autofocus></textarea>
+            <button class="post__button">送 信</button>
+        </form>    
+    </div>  
+</main>
+{% endblock body %}d
