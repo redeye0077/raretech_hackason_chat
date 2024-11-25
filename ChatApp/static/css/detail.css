@@ -38,6 +38,12 @@
     margin-left: 0.3rem;
 }
 
+.message-elements-wrapper {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+}
+
 
 .message__content {
     background-color: var(--sky);
@@ -65,6 +71,12 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+.my-message-elements__column {
+    display: flex;
+    flex-direction: column;
 }
 
 .my-message__content {
@@ -72,6 +84,7 @@
     display: inline-block;
     padding: 1rem;
     border-radius: 20px;
+    max-width: 560px;
     /* ここに右尻尾 */
 }
 
@@ -104,17 +117,6 @@
     flex-direction: column;
 }
 
-/* レイアウト */
-
-.layout__flex {
-    display: flex;
-    align-items: flex-end;
-}
-
-.layout__column {
-    display: flex;
-    flex-direction: column;
-}
 
 
 /* ----------- post-area ----------- */
@@ -124,10 +126,9 @@
     width: 70%;
     display: flex;
     justify-content: space-around;
-    align-items:center ;
+    align-items:center;
     gap: 2rem;
     margin: 1rem 0;
-
 }
 
 

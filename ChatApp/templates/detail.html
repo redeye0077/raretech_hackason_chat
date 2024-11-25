@@ -13,7 +13,7 @@
                         <div class="my-message">
                             <p class="my-message__name">{{ message.name }}(自分)</p>
                             <div class="my-message-elements-wrapper">
-                                <div class="layout__column">
+                                <div class="my-message-elements__column">
                                     <form action="/delete_message" method="post" class="my-message__delete-button-posi"><button class="my-message__delete-button">削除</button></form>      
                                     <!-- メッセージ投稿時刻のフォーマット変更 -->
                                     {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
@@ -26,7 +26,7 @@
                     {% else %}
                         <div class="message">
                             <p class="message__name">{{ message.name }}</p>       
-                            <div class="layout__flex">
+                            <div class="message-elements-wrapper">
                                 <p class="message__content">{{ message.content }}</p> 
                                 <!-- メッセージ投稿時刻のフォーマット変更 -->
                                 {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
