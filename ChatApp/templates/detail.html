@@ -4,34 +4,47 @@
     <li class="button__text-center"><a href="{{ url_for('signout') }}" class="azuki-button">サインアウト</a></li>
 {% endblock %}{% block body %}
 <main>
-    <!-- 変数が表示できるかテスト -->
     <p>{{ channel.description }}</p>
-
-    <!-- メッセージの投稿者による条件分岐・名前と時刻をセットで表示-->
-    {% for message in messages %}
-        {% if message.user_id == user_id %}
-            <p>{{ message.name }}</p>
-            <p class="message—mine">{{ message.content }}</p>
-            <form action="/delete_message" method="post"><button class="">削除</button></form> 
-            <!-- メッセージ投稿時刻のフォーマット変更 -->
-            {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
-            <p>{{ timestamp }}</p>
-            {% endwith %}
-        {% else %}
-            <p>{{ message.name }}</p>       
-            <p class="message—others">{{ message.content }}</p> 
-            <!-- メッセージ投稿時刻のフォーマット変更 -->
-            {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
-            <p>{{ timestamp }}</p>
-            {% endwith %}
-        {% endif %}
-    {% endfor %}
-
-    <form action="{{ url_for('messageAdd')}}" method="post">
-        <input type="hidden" name="channel_id" value="{{ channel.id }}">
-        <textarea name="content"></textarea>
-        <button>送信</button>
-    </form>
-    
+    <div class="detail-main-wrapper">
+        <div class="messages-area">
+            <div class="messages-wrapper">
+                {% for message in messages %}
+                    {% if message.user_id == user_id %}
+                        <div class="my-message">
+                            <p class="my-message__name">{{ message.name }}(自分)</p>
+                            <div class="my-message-elements-wrapper">
+                                <div class="layout__column">
+                                    <form action="/delete_message" method="post" class="my-message__delete-button-posi"><button class="my-message__delete-button">削除</button></form>      
+                                    <!-- メッセージ投稿時刻のフォーマット変更 -->
+                                    {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
+                                    <p class="my-message__timestamp">{{ timestamp }}</p>
+                                    {% endwith %}
+                                </div>
+                                <p class="my-message__content">{{ message.content }}</p> 
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="message">
+                            <p class="message__name">{{ message.name }}</p>       
+                            <div class="layout__flex">
+                                <p class="message__content">{{ message.content }}</p> 
+                                <!-- メッセージ投稿時刻のフォーマット変更 -->
+                                {% with timestamp = message.created_at.strftime('%m月%d日 %H:%M') %}
+                                <p class="message__timestamp">{{ timestamp }}</p>
+                                {% endwith %}
+                            </div>   
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="post-area">
+            <form action="{{ url_for('messageAdd')}}" method="post">
+                <input type="hidden" name="channel_id" value="{{ channel.id }}">
+                <textarea name="content" autofocus></textarea>
+                <button>送信</button>
+            </form>    
+        </div>
+    </div>  
 </main>
 {% endblock body %}

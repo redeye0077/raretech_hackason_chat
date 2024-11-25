@@ -1,7 +1,131 @@
-.message—mine {
-    color: blue;
+/* detail.css */
+
+.detail-main-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
 }
 
-.message—others {
-    color: red;
+
+.messages-area {
+    background-color: white;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    width: 70%;
+    min-width:  640px;
+    height: 640px;
+    overflow: scroll;
+    display: flex;
+    justify-content: center;
 }
+
+.messages-wrapper {
+    width: 90%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ---------- 他者のメッセージ ---------- */
+
+.message__name {
+    font-size: small;
+    margin-left: 0.3rem;
+}
+
+
+.message__content {
+    background-color: var(--sky);
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 20px;
+    /* ここに左尻尾 */
+}
+
+.message__timestamp {
+    font-size: small;
+    margin-left: 0.3rem;
+}
+
+
+/* ----------- 自分のメッセージ --------- */
+
+.my-message__name {
+    font-size: small;
+    margin-left: 0.3rem;
+    text-align: right;
+}
+
+.my-message-elements-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.my-message__content {
+    background-color: var(--sky);
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 20px;
+    /* ここに右尻尾 */
+}
+
+.my-message__delete-button {
+    border: none;
+    padding: 0.2rem;
+    font-size: small;
+    margin-right: 0.3rem;
+}
+
+.my-message__delete-button:hover {
+    color: var(--error_red);
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.my-message__delete-button-posi {
+    text-align: right;
+}
+
+
+.my-message__timestamp {
+    font-size: small;
+    margin-right: 0.3rem;
+}
+
+
+.timestamp-delete-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* レイアウト */
+
+.layout__flex {
+    display: flex;
+    align-items: flex-end;
+}
+
+.layout__column {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ----------- post-area ----------- */
+
+/* textareaの初期値リセット・初期設定 */
+textarea {
+    resize: none;   
+}
+
+textarea:focus{
+    border: none;
+    outline-color: #008000;
+    outline-style: solid;
+    outline-width: 2px;
+  }
+
