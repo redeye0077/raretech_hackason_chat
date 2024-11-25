@@ -4,8 +4,8 @@
     <li class="button__text-center"><a href="{{ url_for('signout') }}" class="azuki-button">サインアウト</a></li>
 {% endblock %}{% block body %}
 <main>
-    <p>{{ channel.description }}</p>
     <div class="detail-main-wrapper">
+        <p class="channel-description">{{ channel.description }}</p>
         <div class="messages-area">
             <div class="messages-wrapper">
                 {% for message in messages %}
@@ -38,13 +38,11 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="post-area">
-            <form action="{{ url_for('messageAdd')}}" method="post">
-                <input type="hidden" name="channel_id" value="{{ channel.id }}">
-                <textarea name="content" autofocus></textarea>
-                <button>送信</button>
-            </form>    
-        </div>
+        <form class="post-area" action="{{ url_for('messageAdd')}}" method="post">
+            <input type="hidden" name="channel_id" value="{{ channel.id }}">
+            <textarea class="post__textarea" name="content" autofocus></textarea>
+            <button class="post__button">送 信</button>
+        </form>    
     </div>  
 </main>
-{% endblock body %}
+{% endblock body %}d
