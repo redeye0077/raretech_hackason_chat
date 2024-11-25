@@ -1,9 +1,166 @@
-.channel-tytle{
-    font-weight: bold;
+.detail-main-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
 }
-.box-right {
-    color: #2196F3;
+
+.channel-description {
+    width: 70%;
+    margin-top: 1rem;
 }
-.box-left {
-    color: green;
+
+.messages-area {
+    background-color: white;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    width: 70%;
+    min-width:  640px;
+    height: 640px;
+    overflow: scroll;
+    display: flex;
+    justify-content: center;
 }
+
+.messages-wrapper {
+    width: 90%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ---------- 他者のメッセージ ---------- */
+
+.message__name {
+    font-size: small;
+    margin-left: 0.3rem;
+}
+
+.message-elements-wrapper {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+
+.message__content {
+    background-color: var(--sky);
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 20px;
+    /* ここに左尻尾 */
+}
+
+.message__timestamp {
+    font-size: small;
+    margin-left: 0.3rem;
+}
+
+
+/* ----------- 自分のメッセージ --------- */
+
+.my-message__name {
+    font-size: small;
+    margin-left: 0.3rem;
+    text-align: right;
+}
+
+.my-message-elements-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+.my-message-elements__column {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-message__content {
+    background-color: var(--sky);
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 20px;
+    max-width: 560px;
+    /* ここに右尻尾 */
+}
+
+.my-message__delete-button {
+    border: none;
+    padding: 0.2rem;
+    font-size: small;
+    margin-right: 0.3rem;
+}
+
+.my-message__delete-button:hover {
+    color: var(--error_red);
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.my-message__delete-button-posi {
+    text-align: right;
+}
+
+
+.my-message__timestamp {
+    font-size: small;
+    margin-right: 0.3rem;
+}
+
+
+.timestamp-delete-column {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* ----------- post-area ----------- */
+
+
+.post-area {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+
+
+.post__textarea {
+    resize: none;   
+    width: 80%;
+    min-width: 400px;
+    padding: 1rem;
+    min-height: 100px;
+    border-radius: 5px
+}
+
+.post__textarea:focus{
+    border: none;
+    outline-color: #008000;
+    outline-style: solid;
+    outline-width: 2px;
+}
+
+.post__button {
+    display: inline-block;
+    border: none;
+    font-size: 1.2rem;
+    background-color: var(--azuki);
+    color: var(--sky);
+    padding: .75rem;
+    min-width: 160px;
+    border-radius: 10px;
+}
+
+.post__button:hover {
+    background-color: var(--pale_azuki);
+    transition: .5s;
+}
+
