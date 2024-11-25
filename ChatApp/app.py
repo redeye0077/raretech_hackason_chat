@@ -207,6 +207,8 @@ def messageAdd():
     utc_now = datetime.now(timezone.utc)
     japan_time = utc_now.astimezone(japan_timezone)
     created_at = japan_time
+    if not content:
+        return redirect('/message/{channel_id}'.format(channel_id = channel_id))
     if content:
         PostModel.createMessage(user_id, channel_id, content, created_at)
     return redirect('/message/{channel_id}'.format(channel_id = channel_id))
