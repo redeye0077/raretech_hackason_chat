@@ -9,6 +9,7 @@
 .channel-description {
     width: 70%;
     margin-top: 1rem;
+    color: var(--dark_green);
 }
 
 .messages-area {
