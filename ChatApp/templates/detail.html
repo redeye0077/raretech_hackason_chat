@@ -35,6 +35,8 @@
                             </div>   
                         </div>
                     {% endif %}
+                {% else %}
+                    <p class="messages-wrapper__description">まだメッセージがありません。</p>
                 {% endfor %}
             </div>
         </div>
@@ -45,4 +47,4 @@
         </form>    
     </div>  
 </main>
-{% endblock body %}d
+{% endblock body %}
