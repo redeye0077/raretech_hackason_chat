@@ -1,137 +1,137 @@
 /*---- 共通部分 ----*/
 
 .registration-wrapper {
-  background-color: var(--base);
-  width: 100vw;
+    background-color: var(--base);
+    width: 100vw;
 }
 
 .registration-container {
-  display: flex;
-  flex-direction: row-reverse;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .registration-main-pic {
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 33vw;
-  height: 100vh;
-  background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 33vw;
+    height: 100vh;
+    background-attachment: fixed;
 }
 
 .registration-form-wrapper {
-  width: 67vw;
-  height: 100vh;
+    width: 67vw;
+    height: 100vh;
 }
 
 .registration-flash-container {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .registration-flash {
-  margin: 1rem;
-  text-align: center;
+    margin: 1rem;
+    text-align: center;
 }
 
 .registration-form-item {
-  width: 18em;
-  height: 75px;
-  margin: 0 auto;
+    width: 18em;
+    height: 75px;
+    margin: 0 auto;
 }
 
 .registration-form-name {
-  text-align: left;
+    text-align: left;
 }
 
 .size-input-form {
-  width: 16.3em;
+    width: 16.3em;
 }
 
 .registration-button {
-  display: inline-block;
-  border: none;
-  font-size: 1.2rem;
-  background-color: var(--dark_green);
-  color: whitesmoke;
-  padding: 0.75rem;
-  width: 165px;
-  border-radius: 30px;
+    display: inline-block;
+    border: none;
+    font-size: 1.2rem;
+    background-color: var(--dark_green);
+    color: white;
+    padding: 0.75rem;
+    width: 165px;
+    border-radius: 30px;
 }
 
 .registration-button:hover {
-  background-color: var(--pale_green);
-  color: var(--black);
-  transition: 0.5s;
+    background-color: var(--pale_green);
+    color: var(--black);
+    transition: 0.5s;
 }
 
 .link-style{
-  text-decoration: none;
-  color: whitesmoke;
+    text-decoration: none;
+    color: white;
 }
 
 .link-style:hover{
-  text-decoration: none;
-  color: var(--black);
-  transition: 0.5s;
+    text-decoration: none;
+    color: var(--black);
+    transition: 0.5s;
 }
 
 /*---- ログイン画面のみ ----*/
 
 .registration-form-login {
-  text-align: center;
-  padding: 3%;
+    text-align: center;
+    padding: 3%;
 }
 
 .registration-title-container{
-  width: 100%;
-  height: 40%;
-  padding: 5% 0% 0% 0%;
+    width: 100%;
+    height: 40%;
+    padding: 5% 0% 0% 0%;
 }
 
 .registration-title-login {
-  padding: 5% 10% 2% 10% ;
-  font-size: 36px;
-  color: var(--dark_green);
-  font-weight: bold;
-  text-align: center;
+    padding: 5% 10% 2% 10% ;
+    font-size: 36px;
+    color: var(--dark_green);
+    font-weight: bold;
+    text-align: center;
 }
 
 .title-message-container{
-  padding: 5% 10% 2% 10% 
+    padding: 5% 10% 2% 10% 
 }
 
 .title-message {
-  font-size: 24px;
-  font-weight: bolder;
-  text-align: center;
+    font-size: 24px;
+    font-weight: bolder;
+    text-align: center;
 }
 
 .registration-button-login-container {
-  height: 15vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 /*---- 新規登録画面のみ ----*/
 
 .registration-form-signup {
-  text-align: center;
+    text-align: center;
 }
 
 .registration-title-signup {
-  padding: 15% 10% 10% 10%;
-  font-size: 36px;
-  color: var(--dark_green);
-  font-weight: bold;
-  text-align: center;
-  width: 100%;
-  height: 30%;
+    padding: 15% 10% 10% 10%;
+    font-size: 36px;
+    color: var(--dark_green);
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    height: 30%;
 }
 
 .registration-button-signup-container {
-  height: 11.5vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+    height: 11.5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }

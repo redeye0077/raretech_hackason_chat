@@ -38,7 +38,7 @@
     border-width: 1.5px;
     border-radius: 10px;
     align-items: center;
-    background-color: whitesmoke;
+    background-color: white;
     border-color: var(--gray);
     border-style: solid;
 }
