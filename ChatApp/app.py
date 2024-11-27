@@ -10,7 +10,6 @@ from util.DB import DB
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
-app.debug = True
 
 # 最初のページを/loginにリダイレクトする
 @app.route('/')
@@ -115,6 +114,9 @@ def userLogin():
 #ホーム画面の表示
 @app.route('/index')
 def index():
+    user_id = session.get("user_id")
+    if user_id is None:
+        return redirect(url_for('login'))
     channels = PostModel.getChannel()
     pagetitle = "ホーム"
     # 各チャンネルの名前に「部屋」を追加
@@ -131,6 +133,9 @@ def signout():
 # 削除画面に遷移
 @app.route('/channel_delete/<int:channel_id>')
 def channel(channel_id):
+    user_id = session.get("user_id")
+    if user_id is None:
+        return redirect(url_for('login'))
     # データベースから該当のチャンネルを取得
     channel = PostModel.getChannelId(channel_id)
     if channel:
@@ -143,6 +148,9 @@ def channel(channel_id):
 # 部屋追加画面
 @app.route('/channel_add')
 def channelAddIndex():
+    user_id = session.get("user_id")
+    if user_id is None:
+        return redirect(url_for('login'))
     pagetitle = "作成"
     return render_template('edit-channel/add-channel.html', pagetitle=pagetitle)
 
@@ -189,6 +197,8 @@ def deleteChannel(channel_id):
 @app.route('/message/<int:channel_id>')
 def messageIndex(channel_id):
     user_id = session.get("user_id")
+    if user_id is None:
+        return redirect(url_for('login'))
     # データベースから該当のチャンネルを取得
     channel = PostModel.getChannelId(channel_id)
     name = PostModel.getChannelId(channel_id)
@@ -224,5 +234,5 @@ def show_error500(error):
     return render_template('error/500.html'), 500
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
     
