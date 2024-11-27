@@ -9,6 +9,7 @@
 .channel-description {
     width: 70%;
     margin-top: 1rem;
+    color: var(--dark_green);
 }
 
 .messages-area {
@@ -31,6 +32,12 @@
     gap: 1rem;
 }
 
+.messages-wrapper__description {
+    text-align: center;
+    color: var(--gray);
+    font-size: 1.2rem;
+}
+
 /* ---------- 他者のメッセージ ---------- */
 
 .message__name {
@@ -51,7 +58,6 @@
     padding: 1rem;
     border-radius: 20px;
     max-width: 560px;
-    /* ここに左尻尾 */
 }
 
 .message__timestamp {
@@ -86,7 +92,6 @@
     padding: 1rem;
     border-radius: 20px;
     max-width: 560px;
-    /* ここに右尻尾 */
 }
 
 .my-message__delete-button {
@@ -111,13 +116,6 @@
     font-size: small;
     margin-right: 0.3rem;
 }
-
-
-.timestamp-delete-column {
-    display: flex;
-    flex-direction: column;
-}
-
 
 
 /* ----------- post-area ----------- */

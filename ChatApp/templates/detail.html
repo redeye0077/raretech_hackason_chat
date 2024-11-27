@@ -8,6 +8,9 @@
         <p class="channel-description">{{ channel.description }}</p>
         <div class="messages-area">
             <div class="messages-wrapper">
+                {% if messages == () %}
+                    <p class="messages-wrapper__description">まだメッセージがありません。</p>
+                {% endif %}
                 {% for message in messages %}
                     {% if message.user_id == user_id %}
                         <div class="my-message">
@@ -45,4 +48,4 @@
         </form>    
     </div>  
 </main>
-{% endblock body %}d
+{% endblock body %}
