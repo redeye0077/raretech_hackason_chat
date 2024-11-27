@@ -199,33 +199,37 @@ def show_error500(error):
     return render_template('error/500.html'), 500
 
 #　メッセージ削除
-@app.route('/message/<int:channel_id>/delete/<int:message_id>', methods=['POST'])
-def deleteMessage(channel_id, message_id):
-    user_id = session.get("user_id")
+@app.route('/delete_message', methods=['POST'])
+def deleteMessage():    
+    user_id = session.get("user_id")  # セッションからユーザーIDを取得
+    channel_id = request.form.get("channel_id")  # フォームからチャンネルIDを取得
+    message_id = request.form.get("message_id")  # フォームからメッセージIDを取得
+
+    # デバッグ用のログ
+    print(f"user_id: {user_id}, channel_id: {channel_id}, message_id: {message_id}")
 
     # メッセージを取得
     message = PostModel.getMessageById(message_id)
 
+    # チャンネルを取得
+    channel = PostModel.getChannelId(channel_id)
+
+    # チャンネルが見つからない場合
+    if not channel:
+        return "チャンネルが見つかりません", 404
+
     # メッセージが見つからない場合
     if not message:
-        error = "メッセージが見つかりません"
-        return render_template('message.html', error_message12=error, channel_id=channel_id)
-
-    # メッセージの削除権限がない場合
-    if message['user_id'] != user_id:
-        error = "削除権限がありません"
-        return render_template('message.html', error_message13=error, channel_id=channel_id, message=None)
+        return render_template('message.html', channel=channel, error="メッセージが見つかりません")
 
     # メッセージの削除処理
     result = PostModel.deleteMessage(message_id)
 
     # 削除に失敗した場合
     if not result:
-        error = "メッセージの削除に失敗しました"
-        return render_template('message.html', error_message14=error, channel_id=channel_id, message=message)
+        return render_template('message.html', channel=channel, message=message, error="削除に失敗しました")
 
     # 成功した場合
-    flash("メッセージを削除しました")
     return redirect(url_for('messageIndex', channel_id=channel_id))
 
 if __name__ == "__main__":
