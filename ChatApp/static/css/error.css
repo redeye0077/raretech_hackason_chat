@@ -1,0 +1,74 @@
+.error-main-wrapper{
+    display: flex;
+    justify-content: center;
+
+    border-color: var(--gray);
+  border-style: solid;
+}
+
+.error-main-container{ 
+    max-width: 80%;
+    margin: 10%;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+
+    border-color: var(--gray);
+  border-style: solid;
+}
+
+.error-column-left{
+    width: 40vw;
+    margin-left: 5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    border-color: var(--gray);
+  border-style: solid;
+}
+
+.error-title{
+    margin-top: 21vh;
+    padding: 0 15px;
+
+
+  border-color: var(--gray);
+  border-style: solid;
+}
+
+.error-title-size{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.error-message-404{
+    min-height: 3.5rem;
+    height: auto;
+    padding: 15px;
+    margin-top: 4vh;
+    display: flex;
+    border-width: 1.5px;
+    border-radius: 10px;
+    align-items: center;
+    background-color: whitesmoke;
+    border-color: var(--gray);
+    border-style: solid;
+}
+
+
+
+.error-message-size{
+    font-size: 20px;
+    
+}
+
+.error-main-pic{
+    height: 560px;
+    width: 380px;
+    margin-right: 5%;
+    border-color: var(--gray);
+  border-style: solid;
+}
+
+
