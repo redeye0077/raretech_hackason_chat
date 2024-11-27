@@ -8,7 +8,7 @@
             {% block title %}
             {% endblock %}
         </title>
-        <link rel="icon" href="../static/img/favicon.ico">
+        <link rel="icon" href="../static/img/favicon.png">
         <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}"/>
     </head>
     <body class="page-wrapper">
@@ -19,17 +19,11 @@
             </div>
             <div>
                 <ul class="header-column">
-                    <li class="button__text-center"><a href="{{ url_for('index')}}" class="azuki-button">ホームへ戻る</a></li>
-                    <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
+                    {% block nav_buttons %}
+                    {% endblock %}
                 </ul>
             </div>
         </header>
-        <div class="">
-            <img
-            src="{{ url_for('static', filename='error.png') }}"
-            class="error-main-pic"
-            />
-        </div>
         {% block body %}
         {% endblock %}
     </body>
