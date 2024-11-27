@@ -1,9 +1,6 @@
 .error-main-wrapper{
     display: flex;
     justify-content: center;
-
-    border-color: var(--gray);
-  border-style: solid;
 }
 
 .error-main-container{ 
@@ -12,9 +9,6 @@
     display: flex;
     justify-content: center;
     gap: 3rem;
-
-    border-color: var(--gray);
-  border-style: solid;
 }
 
 .error-column-left{
@@ -23,18 +17,11 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-
-    border-color: var(--gray);
-  border-style: solid;
 }
 
 .error-title{
     margin-top: 21vh;
     padding: 0 15px;
-
-
-  border-color: var(--gray);
-  border-style: solid;
 }
 
 .error-title-size{
@@ -67,8 +54,6 @@
     height: 560px;
     width: 380px;
     margin-right: 5%;
-    border-color: var(--gray);
-  border-style: solid;
 }
 
 
