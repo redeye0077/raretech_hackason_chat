@@ -10,7 +10,6 @@ from util.DB import DB
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
-app.debug = True
 
 # 最初のページを/loginにリダイレクトする
 @app.route('/')
@@ -235,5 +234,5 @@ def show_error500(error):
     return render_template('error/500.html'), 500
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
     
