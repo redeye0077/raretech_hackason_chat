@@ -1,0 +1,63 @@
+{% extends 'base.html' %}  
+
+{% block nav_buttons %}
+    <li class="button__text-center"><a href="{{ url_for('channelAddIndex')}}" class="azuki-button">部屋を作る</a></li>
+    <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
+{% endblock %}
+
+{% block body %}
+<div class="tiledBackground">
+    <div class="toumei">
+        <div class="home-container">
+            <div class="stamp-rally-container">
+                <h2 class="stamp-rally-title">1週間スタンプラリー</h2>
+                <img 
+                src="{{ url_for('static',filename='img/1day-stamp.png')}}"
+                class="stamp-rally-img">
+            </div>
+            <div class="home-main-container">
+                <div class="home-title-container">
+                    {# フラッシュ表示 #}
+                    <div class="home-flash">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p>{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="channel-title">
+                        <h2>習慣部屋一覧</h2>
+                    </div>
+                </div>
+                {# チャンネルリスト #}
+                <div class="channels-list-container">
+                    <div class="channels-list">
+                        <ul class="channel-list-style">
+                            {% for channel in channels %}
+                                <li class="channel-list-item">
+                                    <div class="channel-item">
+                                        <div>
+                                            <strong>{{ channel.name }}</strong>
+                                        </div>
+                                        <div class="text-turn-back">{{ channel.description }}</div>
+                                    </div>
+                                    <div class="channel-item">
+                                        <form action="{{ url_for('channel', channel_id=channel.id) }}" method="get" style="display:inline;">
+                                            <button class="channel-item-button" type="submit">削除画面へ</button>
+                                        </form>
+                                        <form action="{{ url_for('messageIndex', channel_id=channel.id) }}" method="get" style="display:inline;">
+                                            <button class="channel-item-button" type="submit">部屋画面へ</button>
+                                        </form>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+.tiledBackground {
+    height: auto;
+    background-image:url(../img/home.png);
+    background-size: 40vw 60vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right bottom;
+}
+
+.toumei{
+    height: auto;
+    background-color: rgba(255 253 246 /0.562);
+    background-position: right bottom;
+}
+
+.home-container{
+    width: 94.5vw;
+    height: 80vh;
+    margin: 2% 2% 0 2%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+
+.stamp-rally-container{
+    width: 25vw;
+    height: auto;
+    display: block;
+    justify-content: center;
+}
+
+.stamp-rally-title{
+    margin: 0px 20px 0px 20px;
+    text-align: start;
+}
+
+.stamp-rally-img{
+    width: 20vw;
+    height: 25vh;
+    margin: 0px 20px 0px 20px;
+    border-color: var(--gray);
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+}
+
+.home-main-container{
+    width: 70%;
+    height: auto;
+}
+
+.home-title-container{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: end;
+    gap: 15px;
+}
+
+.home-flash{
+    width: auto;
+    color: var(--error_red);
+    padding: 0 0 4px 0;
+}
+
+.channel-title{
+    width: 10rem;
+}
+
+.channels-list-container{
+    width: auto;
+    height: 91%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-color: var(--gray);
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+}
+
+.channels-list{
+    width: 95%;
+    height: 100%;
+    padding: 4% 2.5% 0 0;
+    background-color: white;
+    overflow-y:scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--pale_azuki) var(--pale_green);
+}
+
+.channel-list-style{
+    gap: 10px;
+}
+
+.channel-list-item{
+    height: 4.5rem;
+    padding: 0 15px 0 20px;
+    display: flex;
+    justify-content:space-between ;
+    background-color: var(--base);
+    border-color: var(--gray);
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.channel-item{
+    display: flex;
+    gap: 15px;
+
+}
+
+.text-turn-back{
+    line-break: anywhere;
+}
+
+.channel-item-button{
+    height: 2.5rem;
+    background-color: var(--gray);
+    border-color: var(--black);
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+}

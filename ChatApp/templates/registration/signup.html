@@ -1,0 +1,117 @@
+{% extends 'registration/base.html' %} 
+{% block title %}signup{% endblock %} 
+{% block body %}
+<div class="registration-wrapper">
+    <div class="registration-container">
+    <img
+        src="{{ url_for('static',filename='img/registration.png')}}"
+        class="registration-main-pic"
+    />
+    <div class="registration-form-wrapper">
+        {#ユーザー登録フォーム#}
+        <h1 class="registration-title-signup">１習慣</h1>
+        <form
+        class="registration-form-signup"
+        action="{{ url_for('signup') }}"
+        method="post"
+        >
+        <div class="registration-form-item">
+            <div class="registration-form-name">
+            <label for="signup-name-input">名前</label>
+            </div>
+            <input
+            class="size-input-form"
+            type="text"
+            placeholder="みんなから呼ばれたい名前"
+            name="name"
+            id="signup-name-input"
+            />
+            {# エラーメッセージの表示７ 登録済み名前 #} 
+            {% if error_message7%}
+            <p style="color: var(--error_red)">{{ error_message7 }}</p>
+            {% endif %}
+        </div>
+        <div class="registration-form-item">
+            <div class="registration-form-name">
+            <label for="signup-email-input">メールアドレス</label>
+            </div>
+            <input
+            class="size-input-form"
+            type="email"
+            placeholder="sample@email.com"
+            name="email"
+            id="signup-email-input"
+            />
+            {# エラーメッセージの表示２ 入力無 #} 
+            {% if error_message2 %}
+            <p style="color: var(--error_red)">{{ error_message2 }}</p>
+            {% endif %} 
+            {# エラーメッセージの表示５ 形式違い #} {% if
+            error_message5 %}
+            <p style="color: var(--error_red)">{{ error_message5 }}</p>
+            {% endif %} 
+            {# エラーメッセージの表示６ 登録済みメールアドレス #}
+            {% if error_message6 %}
+            <p style="color: var(--error_red)">{{ error_message6 }}</p>
+            {% endif %}
+        </div>
+        <div class="registration-form-item">
+            <div class="registration-form-name">
+            <label for="signup-password-input">パスワード(半角英数)</label>
+            </div>
+            <input
+            class="size-input-form"
+            type="password"
+            placeholder="パスワードを入力してください"
+            name="password1"
+            id="signup-password-input"
+            />
+            {# エラーメッセージの表示３ 入力無 #} 
+            {% if error_message3 %}
+            <p style="color: var(--error_red)">{{ error_message3 }}</p>
+            {% endif %}
+        </div>
+        <div class="registration-form-item">
+            <div class="registration-form-name">
+            <label for="signup-password-input">パスワード確認</label>
+            </div>
+            <input
+            class="size-input-form"
+            type="password"
+            placeholder="同じパスワードを入力してください"
+            name="password2"
+            id="signup-password-confirmation-input"
+            />
+            {# エラーメッセージの表示４ パスワード違い #} 
+            {% if error_message4%}
+            <p style="color: var(--error_red)">{{ error_message4 }}</p>
+            {% endif %}
+        </div>
+        <div class="registration-button-container">
+            {# エラーメッセージの表示１空のフォーム #} 
+            {% if error_message1 %}
+            <p style="color: var(--error_red)">{{ error_message1 }}</p>
+            {% endif %}
+            <div>
+            <button type="submit" class="registration-button">
+                会員登録
+            </button>
+            </div>
+        </div>
+        <div class="registration-button-signup-container">
+            <div>
+            <button class="registration-button">
+                <a
+                class="link-style"
+                href="{{ url_for('login') }}"
+                >
+                ログインする
+                </a>
+            </button>
+            </div>
+        </div>
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

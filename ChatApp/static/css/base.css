@@ -1,0 +1,74 @@
+/* 代替ボックスモデル指定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+   }
+    
+/* リストのボレットを削除 */
+li {
+    list-style: none;
+   }
+  
+/* リンクの装飾をリセット */
+a {
+    text-decoration: none;
+  }
+  
+/* 入力フォームの初期設定 */
+input {
+    font-size: 110%;
+  }
+
+input:focus{
+    border: none;
+    outline-color: #008000;
+    outline-style: solid;
+    outline-width: 2px;
+  }
+  
+input:hover {
+    cursor: pointer;
+  }
+
+/* ボタンタグの初期設定 */
+button {
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+.button__text-center {
+    text-align: center;
+  }       
+  
+/* 全ページの幅・背景色の指定 */
+.page-wrapper {
+    background-color: var(--base);
+    width: 100vw;
+  }
+
+h2 {
+    font-size: 24px;
+  }
+
+/* あずきボタンのデザイン */
+.azuki-button {
+    display: inline-block;
+    border: none;
+    font-size: 1.2rem;
+    background-color: var(--azuki);
+    color: var(--base);
+    padding: .75rem;
+    width: 165px;
+    border-radius: 30px;
+  }
+
+.azuki-button:hover {
+    background-color: var(--pale_azuki);
+    transition: .5s;
+  }
+
+.flush__error {
+    color: var(--error_red);
+  }

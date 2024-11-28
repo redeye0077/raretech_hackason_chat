@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block nav_buttons %}
+    <li class="button__text-center"><a href="{{ url_for('index')}}" class="azuki-button">ホームへ戻る</a></li>
+    <li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
+{% endblock %}{% block body %}
+<main class="edit-channel-main-wrapper">
+  <div class="edit-channel-container">
+    <section class="edit-channel-column-left">
+      <h2>{{ channel.name }}を削除します。</h2>
+      <div>
+          <p class="edit-channel__alert">部屋を削除すると、会話データも全て削除され復元はできません。</p>
+          <p class="edit-channel__danger">本当に削除してもよろしいですか？</p>
+      </div>
+      <div>
+        {% if error_message %}
+          <p class="flush__error">{{ error_message }}</p>
+        {% endif %}
+      </div>
+      <div class="delete-channel-display-wrapper">
+        <div class="delete-channel-display">
+          <p class="delete-channel-display__name">{{ channel.name }}</p>
+          <p>{{ channel.description}}</p>
+        </div>
+      </div>
+      <form class="edit-channel-button" action="{{ url_for('deleteChannel', channel_id = channel.id)}}" method="post">
+        <button class="azuki-button">部屋を削除</button>
+      </form>
+    </section>
+    <img class="edit-channel-img" src="{{ url_for('static', filename='img/delete-channel.png')}}" alt="">
+</div>      
+</main>
+{% endblock body %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+404エラー
+{% endblock %}
+
+{% block nav_buttons %}
+<li class="button__text-center"><a href="{{ url_for('index')}}" class="azuki-button">ホームへ戻る</a></li>
+<li class="button__text-center"><a href="{{ url_for('signout')}}" class="azuki-button">サインアウト</a></li>
+{% endblock %}
+
+{% block body %}
+<div class="error-main-wrappe">
+    <div class="error-main-container">
+        <div class="error-column-left">
+            <div class="error-title">
+                <p class="error-title-size">404エラー</p>
+            </div>
+            <div class="error-message-404">
+                <p class="error-message-size">
+                    ページが見つかりません。
+                </p>
+            </div>
+        </div>
+        <img
+            src="{{ url_for('static',filename='img/error.png')}}"
+            class="error-main-pic">
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'registration/base.html' %} 
+{% block title %}login{% endblock %} 
+{% block body %}
+<div class="registration-wrapper">
+    <div class="registration-container">
+    <img
+        src="{{ url_for('static',filename='img/registration.png')}}"
+        class="registration-main-pic"
+    />
+        <div class="registration-form-wrapper">
+            <div class="registration-title-container">
+                <h1 class="registration-title-login">１習慣</h1>
+                <div class="title-message-container">
+                    <p class="title-message">
+                    仲間とつながり習慣をそだてる
+                    </p>
+                    <p class="title-message">
+                    気になる部屋に遊びに行こう！
+                    </p>
+                </div>
+            </div>
+            <div>
+            {# フラッシュ表示（登録完了） #}
+            <div class="registration-flash-container">
+                {% with messages = get_flashed_messages() %} 
+                {% if messages %}
+                {% for message in messages %}
+                <p class="registration-flash">{{ message }}</p>
+                {% endfor %}
+                {% endif %} 
+                {% endwith %}
+            </div>
+            {#ログインフォーム#}
+            <form
+            class="registration-form-login"
+            action="{{ url_for('login') }}"
+            method="post"
+            >
+                <div class="registration-form-item">
+                <div  class="registration-form-name"> 
+                    <label for="emai-input">メールアドレス</label>
+                </div>
+                <input
+                    class="size-input-form"
+                    type="email"
+                    placeholder="sample@email.com"
+                    name="email"
+                    id="emai-input"
+                    />
+                </div>
+                <div class="registration-form-item">
+                    <div class="registration-form-name">
+                    <label for="password-input">パスワード</label>
+                    </div>
+                    <input
+                    class="size-input-form"
+                    type="password"
+                    placeholder="パスワードを入力してください"
+                    name="password"
+                    id="password-input"
+                    />
+                    {# エラーメッセージの表示１１ パスワード間違い #} {% if error_message11 %}
+                    <p style="color: var(--error_red)">{{ error_message11 }}</p>
+                    {% endif %}
+                </div>
+                <div class="registration-button-login-container">
+                    <div>
+                    <button type="submit" class="registration-button">
+                    ログイン
+                    </button>
+                    </div>    
+                    {# エラーメッセージの表示９ 空のフォーム #} {% if error_message9 %}
+                    <p style="color: var(--error_red)">{{ error_message9 }}</p>
+                    {% endif %}
+
+                    {# エラーメッセージの表示10 存在なし #} {% if error_message10 %}
+                    <p style="color: var(--error_red)">{{ error_message10 }}</p>
+                    {% endif %}
+                </div>
+                <div class="registration-button-login-container">
+                    <p>アカウントをお持ちでない方は、会員登録</p>
+                    <div>
+                        <button class="registration-button">
+                        <a
+                        class="link-style"
+                        href="{{ url_for('signup') }}"
+                        >
+                        会員登録
+                        </a>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
