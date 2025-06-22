@@ -15,3 +15,4 @@ RUN pip install -U pip && \
     pip install -r requirements.txt
 # ソースコードをコンテナにコピー
 COPY . /code/
+CMD ["python", "app.py"]
